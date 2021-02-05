@@ -1,0 +1,87 @@
+
+\begin{frame}{}
+  \lstset{language=C}
+ \begin{lstlisting}
+main(argc,argv){
+ ... // initialization
+ MPI_Init();
+ MPI_Comm_size()
+ MPI_Comm_rank(my_rank)
+ lCPUs = omp_get_num_procs();
+ lGPUs = ilcs_get_num_gpus();
+ MPI_Reduce(lCPUs, gCPUs,MPI_SUM) // Total number of CPUs (OMP threads)
+ MPI_Reduce(lGPUs, gGPUs,MPI_SUM) // Total number of GPUs
+ champSize = CPU_Init();
+ ... // Memory allocation for storing local and global champions w.r.t. champSize
+ MPI_Barrier();
+ <@\textcolor{blue}{\#pragma omp parallel num\_threads(CPUs+1)}@>
+ {rank = omp_get_thread_num()
+  if (rank != 0){ // worker threads
+   while(cont){
+    //Calculate Seed
+    local_result = CPU_Exec()
+    if (local_result < champ[rank]){
+     <@\textcolor{blue}{\#pragma omp cirtical}@>
+     memcpy(champ[rank],local_result)
+    }
+   }
+  } else{ //communication thread
+   do{
+    //Find and report the thread with 
+    //local champion, global champion
+    MPI_AllReduce();
+    //Find and report the process with
+    //global champion
+    MPI_AllReduce();	
+    //The process with the global champion
+    //copy its results to bcast_buffer	
+    if (my_rank == global_champion){
+     <@\textcolor{blue}{\#pragma omp cirtical}@>
+     memcpy(bcast_buffer,local_champ)
+    }
+    //Broadcast the champion
+    MPI_Bcast(bcast_buffer)
+   } while (no_change_threshold);
+   cont=0 // signal worker threads to stop
+  }
+ }
+ //Find and report the thread with 
+ //local champion, global champion
+ MPI_AllReduce();
+ //Find and report the process with 
+ //global champion
+ MPI_AllReduce();
+ // The process with the global champion
+ // copy its results to bcast_buffer	
+ if (my_rank == global_champion){
+  <@\textcolor{blue}{\#pragma omp cirtical}@>
+  memcpy(bcast_buffer,local_champ)
+ }
+ //Broadcast the champion
+ MPI_Bcast(bcast_buffer)
+ if(my_rank==0){
+  CPU_Output(champ)
+ }
+ MPI_Finalize()
+}
+
+/* User code for TSP problem */
+
+CPU_Init(){
+ // Read In data from cities
+ // Calculate distances
+ // Return data structure to store champion
+}
+
+CPU_Exec(){
+ // Find local champions (TSP tours)
+}
+
+CPU_Output(){
+ // Output champion
+}
+
+
+\end{lstlisting}
+\end{frame}
+

@@ -1,0 +1,109 @@
+Three major recent studies
+have emphasized the need for better debugging tools
+{\em and} the need to build a community that can share debugging
+methods and infrastructure: the DOE report mentioned
+earlier \cite{hpcdoe},
+an NSF workshop~\cite{Cohen:2018:IRC:3297279}, and an ASCR report on
+extreme heterogeneity~\cite{ascr-report-extreme-heterogeneity}.
+%
+Our key contribution in this paper is a fresh approach to debugging
+that (1)~incorporates methods to debug across the API-stack
+by resorting to binary tracing and thereby being able to ``dial into''
+MPI bugs and/or OpenMP bugs (as shown in the ILCS case study), (2)~makes
+initial triage of debugging methods possible via function-call traces,
+and (3)~enables the verification community to cohere around DiffTrace
+by allowing other tools to extend our toolchain (they can tap into it at various places).
+
+
+Many HPC debugging efforts have emphasized
+the need to highlight dissimilarities and
+incorporate progress measures on loops. We now
+summarize a few of them.
+%
+AutomaDeD~\cite{automaded-GBron}\cite{automaded-laguna}
+captures the application's control flow
+via Semi Markov Models and detects outlier executions.
+%
+PRODOMETER~\cite{prodometer} detects loops in
+AutomaDeD models and introduces the
+notion of {\em least progressed tasks} by analyzing {\em progress dependency graphs}.
+%
+DiffTrace's DiffNLR method does not (yet) incorporate progress measures; it only
+computes changes in loop {\em structure}.
+%
+Prodometer's methods are ripe for symbiotic incorporation into DiffTrace.
+%
+We also plan to incorporate {\em happens-before} computation as a progress measure using FCA-based algorithms by Garg et al.~\cite{latticeForDistConst,garg_2015}.
+%
+FCA-based approaches have been widely used in data mining~\cite{cldm},
+machine learning~\cite{clml}, and information retrieval \cite{ignatov17}.
+
+
+In terms of computing differences with previous executions,
+we draw inspirations from
+Zeller's delta-debugging~\cite{DBLP:conf/esec/Zeller99}
+and De Rose et al.'s relative debugging~\cite{relative-debugging}.
+%
+The power of equivalence classes for outlier detection is
+researched in STAT~\cite{stat}, which
+merges stack traces from processes into a prefix tree,
+looking for equivalence-class outliers.
+%
+STAT uses the StackWalker API from Dyninst~\cite{dyninst} to gather stack traces
+and efficiently handles scaling issues
+through tree-based overlay networks such as MRnet~\cite{mrnet}.
+%
+D4~\cite{liu-18} detects concurrency bugs by statically analyzing source-code
+changes, and DMTracker~\cite{dmtracker} detects anomalies in data movement.
+%
+The communication patterns of HPC applications can be automatically characterized by
+diffing the communication matrix with common patterns~\cite{roth-15} or by
+detecting repetitive patterns~\cite{preissl-08}.
+%
+ScalaTrace~\cite{scalatrace} captures and compresses communication traces for later replay. 
+%
+Synoptic~\cite{beschastnikh-synoptic} is applied to distributed
+system logs to find bugs.
+%
+%Ravel~\cite{ravel} systematically visualizes large-scale application communications~\cite{charmVis}. 
+
+%
+%
+%\subsection{OTHERS}
+%\hl{in case of lack of material}
+%\begin{itemize}
+%\item Trace File Comparison with a hierarchical Sequence Alignment algorithm \cite{weber-seqAlign}
+%\item structural clustering : matthias weber \cite{weberStructural}
+%\item building a better backtrace: techniques for postmortem program analysis - ben liblit \cite{liblit02}
+%\item automatically charecterizing large scale program behavior - timothy sherwood \cite{sherwood02}
+%\item Score-P \cite{scorep}
+%\item TAU \cite{tau}
+%\item ScalaTrace: Scalable compression and replay of communication traces for HPC  \cite{scalatrace}
+%\end{itemize}
+
+
+
+
+
+
+%
+%\subsection{STAT}
+%
+%Parallel debugger STAT\cite{stat}
+%\begin{itemize}
+%\item STAT gathers stack traces from all processes
+%\item Merge them into prefix tree
+%\item Groups processes that exhibit similar behavior into equivalent classes
+%\item A single representative of each equivalence can then be examined with a full-featured debugger like TotalView or DDT
+%\end{itemize}
+%
+%What STAT does not have?
+%
+%\begin{itemize}
+%\item FP debugging
+%\item Portability (too many dependencies)
+%\item Domain-specific
+%\item Loop structures and detection
+%\end{itemize}
+
+

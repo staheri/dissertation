@@ -1,0 +1,21 @@
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[]
+\caption{Attributes mined from traces}
+\label{tab:atr}
+\centering
+\scalebox{0.9}{
+\begin{tabular}{|l|l|c|l|}
+\hline
+\multicolumn{4}{|c|}{\begin{tabular}[c]{@{}c@{}}\textbf{Attributes}\\ \{attr:freq\}\end{tabular}} \\ \hline
+\multicolumn{2}{|c|}{attr} & \multicolumn{2}{c|}{freq} \\ \hline
+\multirow{3}{*}{\textbf{Single}} & \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}each entry \\ of the trace\end{tabular}} & \multirow{2}{*}{\textbf{Actual}} & \multirow{2}{*}{observed frequency} \\
+ &  &  &  \\ \cline{3-4} 
+ &  & \multirow{2}{*}{\textbf{Log10}} & \multirow{2}{*}{log10 of the observed frequency} \\ \cline{1-2}
+\multirow{3}{*}{\textbf{Double}} & \multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}each pair of \\ consecutive entries\end{tabular}} &  &  \\ \cline{3-4} 
+ &  & \multirow{2}{*}{\textbf{noFreq}} & \multirow{2}{*}{no frequency} \\
+ &  &  &  \\ \hline
+\end{tabular}}
+\end{table}
