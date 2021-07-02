@@ -10,12 +10,12 @@ Enabling \parlot's compression algorithm reduced the emitted trace data by a fac
 
 Figure \ref{overview} provides a general overview of \parlot 's workflow.
 %
-Basic blocks within program executables are {\em dynamically} instrumented before being executed. The collected data are compressed on-the-fly at runtime. 
+Basic blocks within program executables are {\em dynamically} instrumented before being executed. The collected data are compressed on-the-fly at runtime.
 %
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=1.8in]{overview3.png}
+\includegraphics[width=1.8in]{parlot/overview3.png}
 \caption{Overview of \parlot}
 \label{overview}
 \end{figure}
@@ -45,7 +45,7 @@ To remedy this situation, the compressor must operate incrementally, i.e., each 
 
 We used the CRUSHER framework~\cite{mb-cluster15, mb-space16, mb-sc16, mb-dcc18} to automatically synthesize an effective and fast lossless compression algorithm for our traces. CRUSHER is based on a library of data transformations extracted from various compression algorithms. It combines these transformations in all possible ways to generate algorithm candidates, which it then evaluates on a set of training data. We gathered uncompressed traces from some of the Mantevo miniapps~\cite{mantevo} for this purpose. This evaluation revealed that a particular word-level Lempel-Ziv (LZ) transformation followed by a byte-level Zero-Elimination (ZE) transformation works well. In other words, \parlot 's trace entries, which are two-byte words, are first transformed using LZ. The output is interpreted as a sequence of bytes, which is transformed using ZE for further compression. The output of ZE is written to secondary storage.
 
-LZ implements a variant of the LZ77 algorithm~\cite{LZ}. It uses a 4096-entry hash table to identify the most recent prior occurrence of the current value in the trace. Then it checks whether the three values immediately before that location match the three trace entries just before the current location. If they do not, the current trace entry is emitted and LZ advances to the next entry. If the three values match, LZ counts how many values following the current value match the values following that location. The length of the matching substring is emitted and LZ advances by that many values. Note that all of this is done incrementally. The history of previous trace entries available to LZ for finding matches is maintained in a 64k-entry circular buffer. 
+LZ implements a variant of the LZ77 algorithm~\cite{LZ}. It uses a 4096-entry hash table to identify the most recent prior occurrence of the current value in the trace. Then it checks whether the three values immediately before that location match the three trace entries just before the current location. If they do not, the current trace entry is emitted and LZ advances to the next entry. If the three values match, LZ counts how many values following the current value match the values following that location. The length of the matching substring is emitted and LZ advances by that many values. Note that all of this is done incrementally. The history of previous trace entries available to LZ for finding matches is maintained in a 64k-entry circular buffer.
 
 ZE emits a bitmap in which each bit represents one input byte. The bits indicate whether the corresponding bytes are zero or not. Following each eight-bit bitmap, ZE emits the non-zero bytes.
 

@@ -55,7 +55,7 @@ We compare our \parlot tool, implemented on top of \pin 3.5, with \callgrind 3.1
 %
 We created the following versions of \parlot to evaluate different aspects of its design.
 
-\input{tabs.comet.newMed/comet_sd_pMpAcg_BC_itn_p3.5.tex}
+\input{parlot/tabs.comet.newMed/comet_sd_pMpAcg_BC_itn_p3.5.tex}
 
 
 \begin{itemize}
@@ -98,14 +98,14 @@ This simple form of compression is enabled by default in \callgrind.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=3.4in,height=1.9in]{figs.comet.newMed/comet_chartAvg_sd_B_p3_5.png}
+\includegraphics[width=3.4in,height=1.9in]{parlot/figs.comet.newMed/comet_chartAvg_sd_B_p3_5.png}
 \caption{Average tracing overhead on the NPB applications - Input B}
 \label{comet_chartAvg_sd_B_p3_5}
 \end{figure}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=3.4in,height=1.9in]{figs.comet.newMed/comet_chartAvg_sd_C_p3_5.png}
+\includegraphics[width=3.4in,height=1.9in]{parlot/figs.comet.newMed/comet_chartAvg_sd_C_p3_5.png}
 \caption{ Average tracing overhead on the NPB applications - Input C}
 \label{comet_chartAvg_sd_C_p3_5}
 \end{figure}
@@ -118,5 +118,3 @@ Whereas \callgrind 's traces include performance data that \parlot does not capt
 The full function-call trace is a strict superset of the call-graph information that \callgrind records because the call graph can be extracted from the function-call trace but not vice versa.
 %
 In particular, \callgrind cannot recreate the order of the function calls a thread made whereas \parlot can.
-
-
