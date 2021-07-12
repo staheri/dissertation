@@ -1,0 +1,101 @@
+%%% -*-LaTeX-*-
+
+\chapter{Introduction}
+
+\section{Concurrent Software Correctness}
+
+In the life-cycle of computer programs, software testing and debugging play essential roles.
+%
+Many approaches have been developed to test and debug software at different layers and from different aspects.
+%
+Traditional and basic debugging techniques such as ``printf'' debugging, interactive debugging, memory dumps, and profiling have been used widely in software development.
+%
+%
+However, with the high growth in computation power and modern languages, programs are getting more sophisticated, complex, large, and heterogeneous to efficiently exploit the processing power (e.g., Cloud computing, High Performance Computing - HPC).
+%
+Locating a bug in such complex systems is not feasible using traditional debugging techniques for sequential programs.
+%
+
+The core nature of HPC applications is to \textit{efficiently} employ available resources towards solving scientific problems, equations, and simulations.
+%
+This nature implies that during the execution of an HPC code, many processing units are busy executing application instructions concurrently or fully parallel, and communicating with other units to synchronize and compose computation results.
+%
+Processing units are either located on separate machines (i.e., distributed memory) or a single machine with shared memory.
+%
+A \textit{fault} may occur at any layer (e.g., system-level or source-level) during the computation on processing units, or the communication and synchronization between them.
+%
+Detecting the fault symptoms and locating the fault root-cause on such complex and heterogeneous systems requires smart and systematic tracing and analysis.
+%
+
+A recent DOE report\cite{hpcdoe} demonstrates the importance and challenges of correctness in the HPC community, and studies approaches that existing tools follow to overcome such challenges.
+%
+The goal of this dissertation is to solve some of the challenges in HPC debugging by proposing a \textit{domain-independent} mechanism for \textit{efficient tracing} and \textit{effective information extraction} from collected traces.
+
+
+\section{Dissertation Statement}
+Today's programs are designed to exploit the power of modern processing units. Efficiently collecting data and systematically analyze them is an effective way to gain insight into the behavior of complex programs and help developers fix the flaws of the program.
+\section{Background}
+\par{ \textbf{Goal one: Heterogeneity} ---
+Many computation-based scientific problems like gene sequence alignment in biology, climate simulations and stencil codes are implemented to execute on supercomputers.
+%
+Depending on the problem domain, HPC applications apply a wide range of programming languages, compilers, and optimizations to solve problems.
+%
+Besides, HPC applications are often implemented for a particular architecture to maximize performance.
+%
+Moreover, different types of faults might occur at different levels.
+%
+There exist debugging tools that target a specific domain, architecture, programming language, or particular classes of bugs.
+%
+However, the applied techniques in such tools might not prove effective for other domains or bug types.
+%
+In this work, we propose a general-purpose infrastructure to collect comprehensive data from an application regardless of its domain, compiler, and programming language by tracing at the binary level.
+%
+}
+\par{ \textbf{Goal two: Scalability} ---
+Powerful supercomputers are deployed to execute the HPC application on a massive scale to achieve high throughput.
+%
+The high throughput implies that many processing units are busy with executing instructions or communicating with each other in parallel.
+%
+Enough evidence needs to get gathered during the execution from each processing unit (process, thread, task) to understand the computation and communication behavior of the program.
+%
+Also, some abnormal behaviors may only get triggered and manifest when executed on larger scales.
+%
+Thus it is essential to have a mechanism to collect sufficient data during the execution of HPC applications on a massive scale.
+%
+However, capturing the per-processing-unit events requires \textit{control events} to attach to each original event (e.g., function calls).
+%
+Placing and executing these other control events adds overhead to the application execution and might hurt the performance.
+%
+In addition, the collected data from each processing unit have to transfer through system and network bandwidth for the analysis phase.
+%
+Special care for instrumenting and gathering data is essential to preserve the performance of the native application.
+%
+On the other hand, during the execution of HPC applications, each processing unit or node contains a large number of \textit{events} to capture.
+%
+Thus long-running large scale applications often leave an overwhelming amount of data to analyze.
+%
+The search space rapidly grows as the scale of application execution increases.
+%
+Having an efficient \textit{data collection} mechanism to overcome the trade-off between \textit{comprehensive information} and \textit{low overhead}, is another motivation of this dissertation.
+%
+}
+\par{ \textbf{Goal Three: Intuitition} ---
+The effort towards saving significant energy causes the non-intuitive behavior of HPC applications.
+%
+Floating-point reduction, low-buffering message passing, non-determinism of application, and collective operations are just some examples of uncertain behavior of HPC applications.
+%
+Root causing the unsuccessful execution of these kinds of applications is not achievable by ad hoc debuggers.
+%
+The efficient data collection during program execution enables developers to post-mortem analyze the collected data from different aspects.
+%
+Given the one-time gathered data, the behavior of the program execution can be studied iteratively, from various angles on each iteration.
+%
+In this dissertation, different data abstraction and visualization techniques are applied to bring intuition and reveal interesting facts about the program behavior from a purposeful point of view.
+
+\section{Contributions of the Dissertation}
+\section{Organization of the Dissertation}
+\begin{itemize}
+  \item Efficient Whole-Program Tracing (\parlot)
+  \item Whole-Program Trace Analysis for Debugging (DiffTrace)
+  \item End-to-end Analysis Framework for Concurrent Go (Goat)
+\end{itemize}

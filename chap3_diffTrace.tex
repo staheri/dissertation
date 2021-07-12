@@ -1,0 +1,52 @@
+%%% -*-LaTeX-*-
+
+\chapter{Whole-Program Trace Analysis}
+We present a tool called
+DiffTrace that approaches debugging via {\em whole program} tracing and
+diffing of typical and erroneous traces.
+%
+After collecting these traces,
+a user-configurable front-end filters out irrelevant function calls
+and then summarizes loops in the retained function
+calls based on state-of-the-art loop extraction algorithms.
+%
+Information about these loops is inserted
+into concept lattices, which we use to
+compute salient dissimilarities to narrow down bugs.
+%
+DiffTrace is a clean start that addresses
+debugging features missing in existing approaches.
+%
+Our experiments on an MPI/OpenMP program called
+ILCS and initial measurements on LULESH, a DOE miniapp,
+demonstrate the advantages of the proposed debugging approach.
+
+\section{Introduction}
+\label{sec:ch3_intro}
+\input{diffTrace/intro.tex}
+ 
+
+\section{DiffTrace Overview}
+\label{sec:ch3_overview}
+\input{diffTrace/overview.tex}
+
+\section{Algorithms Underlying DiffTrace}
+\label{sec:ch3_algo}
+\input{diffTrace/algorithms.tex}
+
+\section{Case Study: ILCS}
+\label{sec:ch3_ilcs-case-study}
+\input{diffTrace/ilcs.tex}
+%\input{tabs/newResults.tex}
+
+\section{LULESH2 Examples}
+\label{sec:ch3_lulesh}
+\input{diffTrace/lulesh.tex}
+
+\section{Related Work}
+\label{sec:ch3_related}
+\input{diffTrace/relatedwork.tex}
+
+\section{Discussions \& Future Work}
+\label{sec:ch3_discussion}
+\input{diffTrace/discussion.tex}

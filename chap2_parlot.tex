@@ -1,0 +1,34 @@
+%%% -*-LaTeX-*-
+\extrafloats{100}
+
+\chapter{Whole-Program Dyamic Tracing}
+
+This chapter is based on the work published at the Workshop on Programming and Performance Visualization Tools (ESPT) 2018 \cite{parlot}.
+We present \parlot, a framework for efficient whole-program call tracing for HPC (MPI+X) applications using Intel Pin \cite{pin} dynamic binary isntrumentation that includes following key features: (1) It describes a technique that makes low-overhead on-the-fly compression of whole-program call traces feasible. (2) It presents a new, efficient, incremental trace-compression approach that reduces the trace volume dynamically, which lowers not only the needed bandwidth but also the tracing overhead. (3) It collects all caller/callee relations, call frequencies, call stacks, as well as the full trace of all calls and returns executed by each thread, including in library code. (4) It works on top of existing dynamic binary instrumentation tools, thus requiring neither source-code modifications nor recompilation. (5) It supports program analysis and debugging at the thread, thread-group, and program level.
+\parlot establishes that comparable capabilities are currently unavailable. Our experiments with the NAS parallel benchmarks running on the Comet supercomputer with up to 1,024 cores show that ParLoT can collect whole-program function-call traces at an average tracing bandwidth of just 56 kB/s per core.
+
+
+\section{Introduction}
+\label{sec:ch2_intro}
+\input{parlot/intro.tex}
+
+
+\section{Background and Related Work}
+\label{sec:ch2_bgreltool}
+\input{parlot/background.tex}
+
+\section{Design of \parlot}
+\label{sec:ch2_design}
+\input{parlot/design.tex}
+
+\section{Evaluation Methodology}
+\label{sec:ch2_evalmeth}
+\input{parlot/evalmeth.tex}
+
+\section{Results}
+\label{sec:ch2_results}
+\input{parlot/newCometResults.tex}
+
+\section{Discussion and Conclusion}
+\label{sec:ch2_concl}
+\input{parlot/concluding-remarks.tex}

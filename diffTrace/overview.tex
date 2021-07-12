@@ -1,12 +1,12 @@
 \subsection{High-level Overview}
 
-\begin{figure*}[]
+\begin{figure}[]
 \caption{DiffTrace Overview}
-\includegraphics[width=1\textwidth]{figs/overview4.pdf}
+\includegraphics[width=1\textwidth]{diffTrace/figs/overview4.pdf}
 %\includegraphics[]{figs/overview.png}
 %\includegraphics[]{figs/overv}
 \label{fig.diffTraceOverview}
-\end{figure*}
+\end{figure}
 
 DiffTrace employs ParLOT's whole-program function-call and return trace-collection mechanism, where ParLOT captures traces via Pin~\cite{pin} and incrementally compresses them using a new compression scheme~\cite{parlot}.
 %
@@ -22,7 +22,7 @@ The compression mechanism is light-weight yet effective,
 thus reducing not only the required bandwidth and storage but also the
 runtime relative to not compressing the traces.
 As a result, ParLOT can capture whole-program traces at low overhead
-while leaving most of the disk bandwidth to the application. 
+while leaving most of the disk bandwidth to the application.
 %
 Using whole-program traces substantially reduces the number of overall
 debug iterations because it allows us to repeatedly analyze the
@@ -94,7 +94,7 @@ the ``diff Jaccard similarity matrix'' in greyscale at the
 juncture of JSM$_{normal}$ and JSM$_{faulty}$.
 
 
-After the JSM$_{D}$ matrix is computed, we 
+After the JSM$_{D}$ matrix is computed, we
 invoke a hierarchical clustering algorithm that computes the ``B-score''
 and helps rank suspicious traces/processes.
 %
@@ -122,7 +122,7 @@ otherwise retain the overall tool structure.
 Such a ``playground'' for developing and exploring new methods for
 debugging does not exist in HPC.
 %
-There is also the intriguing possibility that 
+There is also the intriguing possibility that
 many of the 30-odd tools mentioned in \S\ref{sec:intro}
 {\em can be made to focus on the problems highlighted
   by diffNLR}, thus gaining efficiency (this will be part of our future work).
@@ -136,7 +136,7 @@ the previous code version found working.
 %
 However, many types of faults may be apparent
 just by analyzing JSM$_{faulty}$: for instance,
-processes whose execution got truncated 
+processes whose execution got truncated
 will look highly dissimilar to those that
 terminated normally.
 %
@@ -152,7 +152,7 @@ on JSM$_{faulty}$ directly.
 \begin{figure}[]
 \centering
 \caption{Simplified MPI implementation of Odd/Even Sort}
-\includegraphics[width=0.40\textwidth]{figs/oddEven.png}
+\includegraphics[width=0.40\textwidth]{diffTrace/figs/oddEven.png}
 \label{fig.oddEven}
 \end{figure}
 
@@ -180,7 +180,7 @@ under low-buffering (MPI EAGER limit).
 We will now show how DiffTrace helps pick out this root-cause.
 
 \subsection{Pre-processing}
-\input{tabs/filters.tex}
+\input{diffTrace/tabs/filters.tex}
 Using ParLOT's decoder, each trace is first decompressed.
 Next, the desired functions are extracted based on predefined
 (Table \ref{tab:filters}) or custom regular expressions
@@ -189,11 +189,11 @@ Next, the desired functions are extracted based on predefined
 %
 Table \ref{tab:oddEvenPT} shows the pre-processed traces ($T_i$) of odd/even sort with four processes.
 $T_i$ is the trace that stores the function calls of process $i$.
-\input{tabs/oddEvenPT.tex}
+\input{diffTrace/tabs/oddEvenPT.tex}
 
 
 
-\input{tabs/oddEvenPT-NLR.tex}
+\input{diffTrace/tabs/oddEvenPT-NLR.tex}
 
 \subsection{Nested Loop Representation}
 
@@ -220,7 +220,7 @@ represent the \textit{loop body} [\texttt{MPI\_Send}-\texttt{MPI\_Recv}] and
 The integer after the \^{} symbol in NLR represents the \textit{loop iteration count}.
 Note that, since the first and last processes only have one-way communication with their neighbors,
 $T_0$ and $T_3$ perform only half as many iterations.
-\input{tabs/tabs.sampleContext.tex}
+\input{diffTrace/tabs/tabs.sampleContext.tex}
 
 \subsection{Hierarchical Clustering via FCA}
 Processes in HPC applications are known to fall into predictable equivalence classes.
@@ -263,7 +263,7 @@ The even traces contain the loop \textit{L0} and the odd traces the loop \textit
 %
 
 % \hl{Definition of formal concept (needed?) figure }\ref{fig:formalConceptDefinition} :
-% 
+%
 % \begin{figure}[]
 % \centering
 % \caption{Formal Concept Definition}
@@ -283,14 +283,14 @@ Table~\ref{tab:sampleContext} and is interpreted as follows:
 \begin{compactitem}
 \item The top node indicates that all traces share MPI\_Init(),
   MPI\_Comm\_size(), MPI\_Comm\_rank() and MPI\_Finalize().
-    \item The bottom node signifies that none of the traces share all attributes. 
+    \item The bottom node signifies that none of the traces share all attributes.
     \item The middle nodes show that $T_0$ and $T_2$ are different from  $T_1$ and $T_3$.
 \end{compactitem}
 
 
 
 % Once the redundant labels are removed from the lattice, each object (trace) and attribute appears in the lattice exactly once. Consequently, the nodes of the lattice form the desired grouping, since it is guaranteed that each trace belongs to exactly one group. However, the concept lattice itself does not provide similarity values for the distinct groups of traces. The \textit{Jaccard Index}, also known as \textit{Intersection over Union}, measures the \textit{distance} between sets $A$ and $B$ in terms of the ratio of the \textit{intersection} size of $A$ and $B$ over the size of their \textit{union}.
-% 
+%
 
 %
 
@@ -298,7 +298,7 @@ Table~\ref{tab:sampleContext} and is interpreted as follows:
 \begin{figure}[t]
 \centering
 \scalebox{0.5}{
-\includegraphics[width=3.4in]{figs/sampleCL.png}}
+\includegraphics[width=3.4in]{diffTrace/figs/sampleCL.png}}
 \caption{Sample Concept Lattice from Object-Attribute Context in Table \ref{tab:sampleContext}}
 \label{fig:sampleCL}
 \end{figure}
@@ -315,13 +315,13 @@ Table~\ref{tab:sampleContext} and is interpreted as follows:
 \begin{figure}[]
 \centering
 \scalebox{0.8}{
-\includegraphics[width=3.4in]{figs/oddEvenJSM2.pdf}}
+\includegraphics[width=3.4in]{diffTrace/figs/oddEvenJSM2.pdf}}
 \caption{Pairwise Jaccard Similarity Matrix (JSM) of MPI Processes in Sample Code}
 \label{fig:jsm2}
 \end{figure}
 
 % For any pair of $(T_i, T_j)$, the number of attributes in the Lowest Common Ancestor (LCA) node of $T_i$ and $T_j$ in the lattice is the number of attributes that $T_i$ and $T_j$ have in common (intersection). The sum of the number of attributes of the nodes on the path from each $T_i$ and $T_j$ to their LCA is the union. This property is one of the motivations for using concept lattices as classifier since it makes computing the union and intersection easy and fast.
-% 
+%
 % Some algorithms for extracting concepts from contexts and constructing the concept lattice require the whole context to be present in the memory.
 %
 
@@ -333,7 +333,7 @@ construct concept lattices (detailed in Section \ref{subsec:algo-cl}).
 %
 % Through an incremental concept-lattice-construction approach,
 % DiffTrace extracts attributes (\hl{table that shows attributes})
-% from NLR traces and injects them into a concept lattice one trace at a time 
+% from NLR traces and injects them into a concept lattice one trace at a time
 %
 Figure \ref{fig:jsm2}
 shows the heatmap
@@ -351,7 +351,7 @@ Next, we show how the differences between two hierarchical clusterings from two 
 % we have explained how DiffTrace can narrow down the search space from numerous long traces to just a few equivalent JSMs (i.e., clusters).
 % %
 JSM$_{normal}$[i][j] (JSM$_{faulty}$[i][j]) shows the Jaccard similarity score of $T_i$ and $T_j$ from the normal trace ($T_i^\prime$ and $T_j^\prime$).
-% 
+%
 % However, we are interested in detecting what changed the most due to the fault.
 % with respect to the ``natural asymmetry'' of the application.
 %
@@ -392,14 +392,14 @@ Figure \ref{fig.diffTraceOverview}.
      \centering
      \begin{subfigure}[b]{0.15\textwidth}
         \centering
-		\includegraphics[width=\textwidth]{figs/legend.pdf}
+		\includegraphics[width=\textwidth]{diffTrace/figs/legend.pdf}
 		\caption{Legend}
 		\label{fig:legend}
 	\end{subfigure}
 	     \hfill
      \begin{subfigure}[b]{0.31\textwidth}
          \centering
-\includegraphics[width=\textwidth]{figs/{b-11.mpi.0K10-5}.pdf}
+\includegraphics[width=\textwidth]{diffTrace/figs/b-11.mpi.0K10-5.pdf}
 \caption{swapBug}
 \label{fig:swapbug}
      \end{subfigure}
@@ -442,7 +442,7 @@ To highlight the differences in an easy-to-understand manner, DiffTrace visually
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.3\textwidth]{figs/{adl-11.mpi.0K10-5}.pdf}
+\includegraphics[width=0.3\textwidth]{diffTrace/figs/adl-11.mpi.0K10-5.pdf}
 \caption{dlBug}
 \label{fig:dlbug}
 \end{figure}
@@ -454,10 +454,10 @@ diffNLR$(x) \equiv $ diffNLR$(T_x,T_x^\prime)$
 %
 where $T_x$ is the trace of thread/process $x$ of a normal execution and $T^\prime_x$ is the corresponding trace of the faulty execution.
 
-Figure \ref{fig:swapbug} shows the diffNLR(5) of \textit{swapBug} where $T_5$ iterates over the loop [MPI\_Recv - MPI\_Send] 16 times (L1\^{}16) after the MPI initialization while the order swap is well reflected in $T_5^\prime$ (L1\^{}7 - L0\^{}9). Both processes seem to terminate fine by executing MPI\_Finalize(). 
+Figure \ref{fig:swapbug} shows the diffNLR(5) of \textit{swapBug} where $T_5$ iterates over the loop [MPI\_Recv - MPI\_Send] 16 times (L1\^{}16) after the MPI initialization while the order swap is well reflected in $T_5^\prime$ (L1\^{}7 - L0\^{}9). Both processes seem to terminate fine by executing MPI\_Finalize().
 However, diffNLR(5) of \textit{dlBug} (Figure \ref{fig:dlbug}) shows that, while $T_5$ executed MPI\_Finalize, $T_5^\prime$ got stuck after executing L1 seven times and never reached MPI\_Finalize.
 
-This example illustrates how our approach can locate the part of each execution that was impacted by a fault. Having an understanding of \textit{how the application should behave normally} can reduce the number of iterations by picking the right set of parameters sooner. 
+This example illustrates how our approach can locate the part of each execution that was impacted by a fault. Having an understanding of \textit{how the application should behave normally} can reduce the number of iterations by picking the right set of parameters sooner.
 
 
 %\begin{figure}[]
@@ -466,10 +466,3 @@ This example illustrates how our approach can locate the part of each execution 
 %\includegraphics[width=0.45\textwidth]{figs/oddEvenDL.png}
 %\label{fig.oddEvenDL}
 %\end{figure}
-
-
-
-
-
-
-

@@ -10,4 +10,18 @@
 %%%
 %%% The text of this file should be about 350 words or less.
 
-I will add an abstract
+With the high growth in computation power and the invention of modern languages, concurrent software testing and debugging is vital to deliver reliable software.
+%
+Finding bugs in concurrent/parallel software is notoriously challenging because 1) the interleaving space grows exponentially with the number of processing units (\eg, CPU cores), 2) the non-deterministic nature of concurrent software makes concurrent bugs difficult to reproduce, and 3) root-causing misbehaved executions of a concurrent program is non-trivial due to the complex interactions between concurrent components of the program.
+%
+In this work, we have designed and implemented several frameworks and toolchains to overcome large-scale and real-world concurrent/parallel software debugging challenges.
+%
+Our methods aim to facilitate the concurrent debugging process by providing efficient data collection and effective information retrieval mechanisms to target real-world software and bugs.
+%
+First, we introduce \parlot, a whole-program call tracing framework for HPC applications (MPI+X) that highly compresses the traces (up to more than 21000 times) while adding minimal overhead with an average required bandwidth of just 56 kB/s per core.
+%
+Second, we present DiffTrace, a series of automated data abstraction, representation, and visualization techniques that differentiates the collected ParLOT traces and narrows the search down to just a few candidates of buggy traces.
+%
+Finally, we illustrate \goat, an end-to-end framework for automated tracing, analysis, and testing of concurrent Go applications.
+%
+We also propose a set of coverage metrics to measure the quality of testing in CSP-like concurrent languages.

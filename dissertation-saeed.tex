@@ -3,6 +3,7 @@
 
 \let \proof    = \relax
 \let \endproof = \relax
+\usepackage[table]{xcolor}
 \usepackage{amsthm}
 
 %%% ====================================================================
@@ -44,24 +45,39 @@
 
 
 % ParLoT
-\usepackage{xcolor}
+%\usepackage{xcolor}
+%\usepackage[table,xcdraw]{xcolor}
+
 \usepackage{booktabs} % For formal tables
 \usepackage{numprint}
 \usepackage{xspace}
 \usepackage{amsfonts}
 \usepackage{color}
-\usepackage{cite}
+%\usepackage{cite}
 \usepackage{textcomp}
 \usepackage[normalem]{ulem}
 \usepackage{soul}
 \usepackage{dblfloatfix}
 
 
+\usepackage{paralist} % compactitem etc
+\usepackage{algorithmic}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[noadjust]{cite}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage[noline]{algorithm2e}
+
+
+
 %%% ====================================================================
 %%% The student-specific front matter fields are defined here:
 
 \author                 {Saeed Taheri}
-\title                  {DEBUGGING AND ANALYSIS OF LARGE-SCALE PARALLEL SOFTWARE}
+\title                  {Tools for Debugging and Analysis of Concurrent Programs}
 \thesistype             {dissertation}
 
 \dedication             {For my family}
@@ -101,11 +117,11 @@
 \copyrightyear          {2021}
 
 %%% Dates on which committee members approved the thesis
-\chairdateapproved      {?? July 2021}
-\firstdateapproved      {?? July 2021}
-\seconddateapproved     {?? July 2021}
-\thirddateapproved      {?? July 2021}
-\fourthdateapproved     {?? July 2021}
+\chairdateapproved      {----- 2021}
+\firstdateapproved      {----- 2021}
+\seconddateapproved     {----- 2021}
+\thirddateapproved      {----- 2021}
+\fourthdateapproved     {----- 2021}
 
 %%% ====================================================================
 %%% Typesetting begins here:
@@ -132,7 +148,7 @@
 %%% file must NOT contain \chapter, \section, \subsection, \ldots{}
 %%% sectioning commands.
 
-\optionalfront {Notation and Symbols} {\input{notation}}
+%\optionalfront {Notation and Symbols} {\input{notation}}
 
 %%% Uncomment this is you want the contents of acknowledge.tex typeset here.
 %%% Note that both "Acknowledgement" and "Acknowledgment" are accepted
@@ -148,19 +164,22 @@
 
 \pagestyle{headings} % NEW for sample-thesis-6
 
-\include {chap1}
+\include {chap1_intro}
 
-\include {chap2}
+\include {chap2_parlot}
+\include {chap3_diffTrace}
+\include {chap4_goat}
+\include {chap5_conclusion}
 %\include {chap3}
 %\include {chap4}
 
 % \numberofappendices = 1   % Set 0 for none, else number of appendices.
-\numberofappendices = 3
-\appendix       % Chapters, sections are now appendix style A, A.1, A.2, B, C, D, ...
+%\numberofappendices = 3
+%\appendix       % Chapters, sections are now appendix style A, A.1, A.2, B, C, D, ...
 
-\include {appa}
-\include {appb}
-\include {appc}
+%\include {appa}
+%\include {appb}
+%\include {appc}
 
 %%% The choice of bibliography style is a major decision, jointly made
 %%% by you, your thesis advisor and the thesis editor. Common choices are

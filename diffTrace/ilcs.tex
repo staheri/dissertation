@@ -1,28 +1,28 @@
-\begin{figure*}
+\begin{figure}
      \centering
      \begin{subfigure}[b]{0.31\textwidth}
         \centering
-\includegraphics[width=\textwidth]{figs/diffNLR/ompBug-6-4-x0.pdf}
+\includegraphics[width=\textwidth]{diffTrace/figs/diffNLR/ompBug-6-4-x0.pdf}
 \caption{diffNLR(6.4)}
 \label{diffNLR-6-4}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.31\textwidth}
        \centering
-\includegraphics[width=\textwidth]{figs/diffNLR/mpiBug-all-nn-x0.pdf}
+\includegraphics[width=\textwidth]{diffTrace/figs/diffNLR/mpiBug-all-nn-x0.pdf}
 \caption{diffNLR(4)}
 \label{diffNLR-0}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.31\textwidth}
          \centering
-\includegraphics[width=0.9\textwidth]{figs/diffNLR/mpiBug2-0-nn-x0.pdf}
+\includegraphics[width=0.9\textwidth]{diffTrace/figs/diffNLR/mpiBug2-0-nn-x0.pdf}
 \caption{diffNLR(5)}
 \label{diffNLR-5}
      \end{subfigure}
         \caption{Three diffNLR outputs}
         \label{fig:three graphs}
-\end{figure*}
+\end{figure}
 
 ILCS is a scalable framework for running iterative local searches on HPC platforms~\cite{ilcs}.
 %
@@ -35,13 +35,13 @@ The injected bugs simulate real HPC bugs such as deadlocks.
 %
 %These bugs are close to common mistakes that HPC developers usually make during developing HPC codes.
 %
-Moreover, we inserted ``hidden'' faults that do not crash the program such as violations of critical sections and semantic bugs. 
+Moreover, we inserted ``hidden'' faults that do not crash the program such as violations of critical sections and semantic bugs.
 %
-%The injected bugs are planted in a way that might get triggered in only one or more threads (master and worker threads, one thread, every other thread, all threads except one, all threads). 
+%The injected bugs are planted in a way that might get triggered in only one or more threads (master and worker threads, one thread, every other thread, all threads except one, all threads).
 %
 The goal was to see how effectively DiffTrace can analyze the resulting traces and how close it can get to the root cause of the fault.
 %
-\input{tabs/ilcsPseudoCode-compact.tex}
+\input{diffTrace/tabs/ilcsPseudoCode-compact.tex}
 
 %
 We collected ParLOT (main image) traces from the execution of ILCS-TSP with 8 MPI processes and 4 OpenMP threads per process on the XSEDE-PSC Bridges supercomputer whose compute nodes have 128 GB of main memory and contain 2 Intel Haswell (E5-2695 v3) CPUs with 14 cores each running at 2.3 - 3.3 GHz.
@@ -125,7 +125,7 @@ Since most of the traces are suspicious, we do not know which one the real culpr
 %
 By looking at the diffNLR(4) output shown in Figure~\ref{diffNLR-0}, we immediately see that both the normal and the buggy trace are identical up to the invocation of MPI\_Allreduce. This gives the user the first (correct) hint as to where the problem lies.
 %
-Beyond this point, the bug-free process continues to the end of the program 
+Beyond this point, the bug-free process continues to the end of the program
 (it reaches the MPI\_Finalize call) whereas the buggy process does not. The last entry in the buggy trace is a call to MPI\_Allreduce (the last green box), indicating that this call never returned, that is, it deadlocked. This provides the user with the second (correct) hint as to the type of the underlying bug.
 %
 
@@ -139,15 +139,15 @@ Beyond this point, the bug-free process continues to the end of the program
 %\end{figure}
 %
 
-\input{tabs/mc1-mc-6-4.tex}
+\input{diffTrace/tabs/mc1-mc-6-4.tex}
 
-\input{tabs/ar1-ws-all-nn.tex}
+\input{diffTrace/tabs/ar1-ws-all-nn.tex}
 
 
 
 \subsection{MPI Bug: Wrong Collective Operation}
 
-By changing the MPI\_MIN argument to MPI\_MAX in the MPI\_Allreduce call on line 24 of Listing~\ref{lst:ilcs}, the semantics of ILCS change. 
+By changing the MPI\_MIN argument to MPI\_MAX in the MPI\_Allreduce call on line 24 of Listing~\ref{lst:ilcs}, the semantics of ILCS change.
 %
 Instead of computing the best answer, the modified code computes the worst answer.
 %
@@ -159,7 +159,7 @@ The first few suspicious processes listed in Table~\ref{tab:ar1-wo-0-nn} are inc
 %
 Looking at the corresponding diffNLR(5) output in Figure~\ref{diffNLR-5} makes it clear why process 5 was singled out. In the buggy run, it executes many more MPI\_Bcast calls than in the bug-free run because the frequency in which local ``optimums'' are produced has changed. Though this should affect all traces equally, which has reflected in the diffNLR of other traces. We are presenting these tables and figures to show that DiffTrace can reveal the impact of silent bugs like the wrong operation. Such data representation via suggested tables and diffNLRs helps developers to gain insight into the general behavior of the execution. More accurate results can be obtained by refining the parameters and collecting more profound traces (e.g., ParLOT(all images)). This would be part of our future work to find the set of parameters for different classes of bugs to maximize accuracy.
 
-\input{tabs/ar1-wo-0-nn.tex}
+\input{diffTrace/tabs/ar1-wo-0-nn.tex}
 
 %\begin{figure}[]
 %\centering
@@ -167,7 +167,3 @@ Looking at the corresponding diffNLR(5) output in Figure~\ref{diffNLR-5} makes i
 %\caption{diffNLR(5)}
 %\label{diffNLR-5}
 %\end{figure}
-
-
-
-
