@@ -1,0 +1,121 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+%\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{paralist} % compactitem etc
+\usepackage{booktabs} % For formal tables
+\usepackage{numprint}
+\usepackage{xspace}
+%\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage[normalem]{ulem}
+\usepackage{soul}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{footmisc}
+\usepackage{dblfloatfix}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[noadjust]{cite}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{pdfrender}
+
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\usepackage[table,xcdraw]{xcolor}
+%\usepackage[noline,noend]{algorithm2e}
+\usepackage[noline]{algorithm2e}
+\usepackage{url}
+\def\UrlFont{\rmfamily}
+
+\usepackage[colorinlistoftodos]{todonotes}
+\input{macros.tex}
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+
+\title{\goat: Automated Concurrency Analysis and Debugging Tool for Go}
+
+
+%\author{\IEEEauthorblockN{Saeed Taheri}
+%\IEEEauthorblockA{\textit{School of Computing} \\
+%\textit{University of Utah}\\
+%Salt Lake City, U.S.A. \\
+%staheri@cs.utah.edu}
+%\and
+%\IEEEauthorblockN{Ganesh Gopalakrishnan}
+%\IEEEauthorblockA{\textit{School of Computing} \\
+%\textit{University of Utah}\\
+%Salt Lake City, U.S.A. \\
+%ganesh@cs.utah.edu}
+%}
+
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+golang, concurrency, testing coverage analysis
+\end{IEEEkeywords}
+
+\bstctlcite{IEEEexample:BSTcontrol}
+
+%\section{GIntroduction}
+%\label{sec:Gintro}
+%\input{Gintro.tex}
+
+\section{Introduction}
+\label{sec:intro}
+\input{intro.tex}
+
+
+\section{Background}
+\label{sec:bg}
+\input{background.tex}
+
+\section{Design and Implementation}
+\label{sec:design}
+\input{design.tex}
+
+\section{Evaluation}
+\label{sec:evaluation}
+\input{evaluation.tex}
+
+%\section{GOAT: Coverage}
+%\label{sec:coverage}
+%\input{coverage.tex}
+
+
+\section{Related Work}
+\label{sec:related}
+\input{relatedwork.tex}
+
+
+\section{Summary \& Future Work}
+\label{sec:summary}
+\input{summary.tex}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibs}
+
+
+\end{document}

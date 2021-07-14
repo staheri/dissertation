@@ -1,0 +1,185 @@
+
+The use of increasing levels of parallelism and concurrency in HPC and Cloud
+is a double-edged sword: while it helps increase performance, save energy, and
+enhance user experience, it
+unfortunately comes with the cost of concurrency bugs.
+%
+This trend can worsen with the upcoming HPC/Cloud
+integration~\cite{dan-herbein-dong} unless we accelerate the
+development of concurrency debugging methods.
+%
+However, unless these debugging systems themselves are
+simple and widely applicable,
+the maintenance of multiple debugging approaches
+will also prove to be a burden.
+%
+Driven by these observations,
+in this paper we take a feature-rich language, namely Go~\cite{go-citation},
+research how to develop an effective debugging methods for real-world
+Go programs, and present the resulting new tool called GoAT.
+%
+The main contribution of this work is to demonstrate how
+GoAT's static and dynamic analysis methods---while very well known
+by their names and effectiveness in simpler contexts---can
+be brought to bear on realistic bug-scenarios in the setting of
+a complex language such as Go; this is our central contribution.
+
+
+Go enjoys accelerating acceptance in a wide variety of
+communities---especially the Cloud community.
+%
+It involves shared memory, message passing, nondeterministic
+message reception and selection,
+dynamic process creation,
+and programming styles that tend to create thousands of Go routines
+and discard them to be garbage collected when not needed.
+%
+This combination of features is known to be the reason why Go
+is popular; yet, it is also well recognized that these features also make
+Go debugging hard.
+%
+Our work is especially relevant considering that
+there are there no widely usable tools for debugging Go; even well-curated
+bug benchmark suites are only just
+now beginning to appear~\cite{tu-concurrentBugs-asplos19,yuan-gobench-cgo21}.
+%
+Combinations of Go's features are found in many other languages,
+making our study carry a broader degree of relevance
+to the HPC/Cloud ecosystem, in addition to providing an effective
+tool for Go itself.
+
+
+One of our priorities in designing GoAT
+was to reuse as much of the existing Go infrastructure
+as we could.
+%
+The static analysis component relies on source rewriting, inserting
+{\em potential} schedule yield points
+at all
+``interesting'' (concurrency-relevant) spots inside a given Go program.
+%
+The dynamic component consists of yielding control back
+to the Go runtime with a user-settable probability value.
+%
+Last but not least, we also exploited the tracing features of Go
+to provide, via GoAT, (1)~as much debug information as possible, and
+(2)~use the tracing features to measure and report concurrency coverage.
+
+
+Our preliminary results in terms of this combined static/dynamic
+approach yielded encouraging results.
+%
+However, bug-hunting on curated bug data sets cannot, by itself, give any
+indications on how well an approach might {\em generalize}.
+%
+Generalization in terms of debugging tools is often achieved
+by carefully defining {\em coverage metrics} and showing how
+well these metrics are met.
+%
+Again, we walked into a field with very few such coverage metrics.
+
+
+Our coverage metrics
+are clearly inspired by other concurrrency coverage
+metrics~\cite{cite,a,few,of,them}.
+%
+Overall, our coverage metrics are inspired by real-world Go bugs,
+and this is new in terms of debugging Go concurrrency.
+%
+Also coverage metrics for select statements---high in the list of
+Go bugs---are believed to be novel.
+%
+Last but not least, we also differentiate between covering
+easier bugs and rare bugs: the former do not require any
+schedule control, while the latter is triggered only through schedule
+control.
+
+
+Developing these coverage metrics required studying the output
+of our initial
+tracing infrastructure on Go bug benchmarks.
+%
+We take advantage of our own tracing framework to
+tabulate and report on the achieved coverage metrics.
+%
+All this is offered via a new tool called \goat (Go Analysis and Testing Tool)
+that we now describe, after introducing relevant features of Go
+itself.
+
+
+\noindent{\bf Features of Go:\/}
+Go \cite{go} is a statically typed language initially developed by Google and at present widely used by many.
+%
+It employs channel-based Hoare's Communicating Sequential Processes (CSP) \cite{hoare-csp78} semantics in its core and provides a productivity-enhancing environment for concurrent programming.
+%
+The concurrent model in Go centers around
+1) \textit{goroutines} as light-weight user-level threads (processing units),
+2) \textit{channels} for explicit messaging to synchronize and share memory through communication, and
+3) a \textit{scheduler} that orchestrates goroutine interactions while shielding
+the user from
+many low-level
+aspects of the runtime.
+%
+This design
+facilitates the
+construction
+of data flow models that efficiently utilize multiple CPU cores.
+%
+Because of the simple yet powerful concurrency model, many real production software systems take advantage of Go,
+including
+container software systems such as Docker \cite{merkel2014docker}, Kubernetes \cite{kubernetes},  key-value databases \cite{etcd}, and web server libraries \cite{grpc}.
+%
+
+
+In traditional shared-memory concurrent languages such as Java/C/C++, threads interact with each other via shared memory.
+%
+Processes in CSP-based languages such as Erlang communicate through mailbox (asynchronous) message passing.
+%
+Go brings all these features together into one language and encourages developers to \textit{share memory through communication} for safe and straightforward concurrency and parallelism.
+%
+The visibility guarantee of memory writes is specified in the memory model\cite{go-memModel} under synchronization constraints (\textit{happens-before} partial order \cite{lamport-hb-1978}).
+%
+The language is equipped with a rich vocabulary of \textit{serialization} features to facilitate the memory model constraints; they include synchronous and asynchronous communication (either unbuffered or buffered channels), memory protection, and barriers for efficient synchronization.
+%
+This rich mixture of features has, unfortunately, greatly exacerbated the complexity of Go debugging.
+%
+In fact, the popularity of Go has outpaced its debugging support~\cite{go-survey,tu-concurrentBugs-asplos19,dilley-empirical-saner19}.
+%
+There are some encouraging developments in support of debugging, such as a data race checker \cite{go-race-blog} that has now become a standard feature of Go, and has helped catch many a bug.
+%
+However, the support for ``traditional concurrency debugging'' such as detecting atomicity violations and Go-specific bug-hunting support for Go idioms (e.g., misuse of channels and locks) remain insufficiently addressed.
+%
+
+\noindent{\bf Contributions:\/} In
+this work, we present the initial steps that we took towards addressing this lack.
+%
+Since a bug might
+occur
+at various levels of abstraction, dynamic tracing provides a practical and uniform way to track multiple facets of the program during execution (as we have shown in our prior work~\cite{difftrace}).
+%
+Also, unlike assertion-based tools \cite{lange-staticType-icse18,wolf-gobra-cav21}, a dynamic tool is more automated, not requiring user expertise.
+%
+We developed a facility that automatically gathers \textit{execution concurrency traces} (\ie sequences of events) during the execution of Go applications with minimal instrumentation.
+%
+By enhancing the Go built-in tracing mechanism with \textit{concurrency usage} events, we enrich original \textit{execution traces} so that they accurately reflect the dynamic concurrency behavior of applications.
+%
+Upon Go programs' termination when tracing is enabled, traces are flushed and structurally stored in relational tables of an SQL database, enabling multi-aspect program analysis in offline.
+%
+
+With the help of this novel \textit{automated dynamic tracing} mechanism,
+we have implemented a testing framework that
+\textit{accelerates} bug exposure by manipulating the native scheduler around \textit{critical points} in the code---combination of constructs that heighten the propensity for bug-introduction.
+%
+
+
+
+To summarize, here are our contributions:
+\stcmtside{need to update}
+\begin{itemize}
+    \item We take the tracing mechanism embedded in the standard Go that captures \textit{execution trace} (ET) and enhance it with a set of concurrency primitive usage events to obtain \textit{execution concurrency trace} (ECT). While the primary usage of ET is performance analysis, ECT provides an accurate and comprehensive model of concurrent execution, enabling automated analysis of logical behavior and concurrent bug detection.
+    \item We introduce a framework that automatically instruments the target program, collects ECT, and structurally stores them in a database. Through querying the database, several visualizations and reports are accessible.
+    \item We propose an approach to identify the points (\ie source line number) in the target program in which a random noise might drastically change the program's dynamic behavior. We analyze ECTs to identify such points and measure schedule space coverage per execution.
+    \item Coverage metric
+\end{itemize}
+\stcmtside{need to update}
+The rest of this paper is as follows: Section \ref{sec:correctness} discusses correctness problems and approaches in Go. Section \ref{sec:ect} describes the enhancement we made to the tracer package. Section \ref{sec:disc} discusses the advantages of dynamic tracing for concurrent debugging and draws the ongoing and future direction of the current work. At last, section \ref{sec:summary} summarizes and concludes.
