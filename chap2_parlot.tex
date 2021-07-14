@@ -2,8 +2,9 @@
 \extrafloats{100}
 
 \chapter{Whole-Program Dyamic Tracing}
+\label{sec:ch2}
 
-This chapter is based on the work published at the Workshop on Programming and Performance Visualization Tools (ESPT) 2018 \cite{parlot}.
+This chapter is based on the work published at the Workshop on Programming and Performance Visualization Tools (ESPT) 2018 \cite{parlot}\footnote{\copyright 2019 Springer. Adapted, with permission, from Taheri S., Devale S., Gopalakrishnan G., Burtscher M. (2019) ParLoT: Efficient Whole-Program Call Tracing for HPC Applications. In: Bhatele A., Boehme D., Levine J., Malony A., Schulz M. (eds) Programming and Performance Visualization Tools. ESPT 2017, ESPT 2018, VPA 2017, VPA 2018. Lecture Notes in Computer Science, vol 11027. Springer, Cham. https://doi.org/10.1007/978-3-030-17872-7\_10}.
 We present \parlot, a framework for efficient whole-program call tracing for HPC (MPI+X) applications using Intel Pin \cite{pin} dynamic binary isntrumentation that includes following key features: (1) It describes a technique that makes low-overhead on-the-fly compression of whole-program call traces feasible. (2) It presents a new, efficient, incremental trace-compression approach that reduces the trace volume dynamically, which lowers not only the needed bandwidth but also the tracing overhead. (3) It collects all caller/callee relations, call frequencies, call stacks, as well as the full trace of all calls and returns executed by each thread, including in library code. (4) It works on top of existing dynamic binary instrumentation tools, thus requiring neither source-code modifications nor recompilation. (5) It supports program analysis and debugging at the thread, thread-group, and program level.
 \parlot establishes that comparable capabilities are currently unavailable. Our experiments with the NAS parallel benchmarks running on the Comet supercomputer with up to 1,024 cores show that ParLoT can collect whole-program function-call traces at an average tracing bandwidth of just 56 kB/s per core.
 

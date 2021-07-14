@@ -1,3 +1,53 @@
 %%% -*-LaTeX-*-
 
 \chapter{Automated Concurrency Testing Framework for Go}
+\label{sec:ch4}
+
+This chapter is based on the work submitted to the 2021 IEEE International Symposium on Workload Characterization (IISWC).
+We present \goat, a combined static and dynamic concurrency testing
+and analysis tool that facilitate the process of debugging for real-world programs.
+%
+Key ideas in \goat include
+1) automated dynamic tracing to capture the behavior of concurrency primitives,
+2) systematic schedule space exploration to accelerate the bug occurance
+and 3) deadlock detection with supplementary visualizations and reports.
+We also propose a set of coverage requirements that characeterize the dynamic behavior of concurrency primitives and provide metrics to measure the quality of tests.
+%
+Our evaluation on 68 curated real-world bug scenarios
+demonstrates that GoAT is significantly effective in detecting
+rare bugs, and its schedule perturbation method based on schedule
+yielding detects these bugs with less than three yields.
+%
+These results together with the ease of deploying GoAT on real-world
+Go programs holds significant promise in field-debugging of Go programs.
+
+\section{Introduction}
+\label{sec:ch4_intro}
+\input{goat/intro.tex}
+
+
+\section{Background}
+\label{sec:ch4_bg}
+\input{goat/background.tex}
+
+\section{Design and Implementation}
+\label{sec:ch4_design}
+\input{goat/design.tex}
+
+\section{Evaluation}
+\label{sec:ch4_evaluation}
+\input{goat/evaluation.tex}
+
+%\section{GOAT: Coverage}
+%\label{sec:coverage}
+%\input{coverage.tex}
+
+
+\section{Related Work}
+\label{sec:ch4_related}
+\input{goat/relatedwork.tex}
+
+
+\section{Summary \& Future Work}
+\label{sec:ch4_summary}
+\input{goat/summary.tex}

@@ -74,6 +74,26 @@ journal = {Local Search in Combinatorial Optimization}
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
+@InProceedings{abbaspour-concurrencyBugs,
+author="Abbaspour Asadollah, Sara
+and Sundmark, Daniel
+and Eldh, Sigrid
+and Hansson, Hans 
+and Enoiu, Eduard Paul",
+editor="Crowston, Kevin
+and Hammouda, Imed
+and Lundell, Bj{\"o}rn
+and Robles, Gregorio
+and Gamalielsson, Jonas
+and Lindman, Juho",
+title="A Study of Concurrency Bugs in an Open Source Software",
+booktitle="Open Source Systems: Integrating Communities",
+year="2016",
+publisher="Springer International Publishing",
+address="Cham",
+pages="16--31",
+}
+
 @inproceedings{relative-debugging,
   author    = {Luiz De Rose and
                Andrew Gontarek and
@@ -1680,6 +1700,34 @@ doi={10.1109/CLUSTER.2019.8891027},
 }
 
 
+@INPROCEEDINGS{uintah,
+  author={Davison de St. Germain, J. and McCorquodale, J. and Parker, S.G. and Johnson, C.R.},
+  booktitle={Proceedings the Ninth International Symposium on High-Performance Distributed Computing},
+  title={Uintah: a massively parallel problem solving environment},
+  year={2000},
+  volume={},
+  number={},
+  pages={33-41},
+  doi={10.1109/HPDC.2000.868632}}
+
+@article{ascr-report-extreme-heterogeneity,
+title = {Extreme Heterogeneity 2018 - Productive Computational Science in the Era of Extreme Heterogeneity: Report for DOE ASCR Workshop on Extreme Heterogeneity},
+author = {Vetter, Jeffrey S. and Brightwell, Ron and Gokhale, Maya and McCormick, Pat and Ross, Rob and Shalf, John and Antypas, Katie and Donofrio, David and Humble, Travis and Schuman, Catherine and Van Essen, Brian and Yoo, Shinjae and Aiken, Alex and Bernholdt, David and Byna, Suren and Cameron, Kirk and Cappello, Frank and Chapman, Barbara and Chien, Andrew and Hall, Mary and Hartman-Baker, Rebecca and Lan, Zhiling and Lang, Michael and Leidel, John and Li, Sherry and Lucas, Robert and Mellor-Crummey, John and Peltz Jr., Paul and Peterka, Thomas and Strout, Michelle and Wilke, Jeremiah},
+url = {https://www.osti.gov/biblio/1473756},
+place = {United States},
+year = {2018},
+month = {12}
+}
+
+@Manual{LULESH2:changes,
+author = {Ian Karlin and Jeff Keasler and Rob Neely},
+title = {LULESH 2.0 Updates and Changes},number = {LLNL-TR-641973},
+location = {Livermore, CA},
+pages = {1-9},
+year = {2013},
+month = {August}
+}
+
 @Manual{ doecode_1687,
 title = {MFEM: Modular Finite Element Methods Library},
 author = {Kolev, Tzanio and Dobrev, Veselin},
@@ -1865,6 +1913,7 @@ series = {SIGMOD '20}
 
 @Manual{go,
 title={Effective {G}o},
+author={{https://golang.org/doc/effective\_go.html}},
 url={https://golang.org/doc/effective\_go.html},
 journal={Go}}
 
@@ -1911,6 +1960,7 @@ keywords = {parallel programming, monitors, output, iterative arrays, classes, n
 
 @Manual{kubernetes,
 title={Kubernetes {R}eference},
+author={{https://kubernetes.io/docs/reference/}},
 url={https://kubernetes.io/docs/reference/},
 journal={Kubernetes},
 urldate = {2020-12-01} }
@@ -1919,6 +1969,7 @@ urldate = {2020-12-01} }
 @Manual{grpc,
 title={A high performance, open source, general {RPC} framework that
 puts mobile and {HTTP}/2 first},
+author={{https://github.com/grpc/grpc-go}},
 url={https://github.com/grpc/grpc-go},
 journal={Google}}
 
@@ -1969,12 +2020,14 @@ numpages = {10},
 
 @Manual{boltdb,
 title={BoltDB: An embedded key/value database for Go},
+author={BoltDB},
 url={https://github.com/boltdb/bolt},
 }
 
 @Manual{etcd,
 title={ETCD: A distributed, reliable key-value store for the most critical data
 of a distributed system},
+author={{https://github.com/coreos/etcd}},
 url={https://github.com/coreos/etcd},
 }
 
@@ -2027,6 +2080,7 @@ series = {PADTAD '06}
 
 @Manual{go-survey,
 title={Go Developer Survey 2019 Results},
+author={{https://blog.golang.org/survey2019-results}},
 url={https://blog.golang.org/survey2019-results},
 }
 
@@ -2274,14 +2328,14 @@ url={https://bit.ly/executionTracer},
 
 @Manual{go-package-trace,
 title={Package Trace},
-author = {Golang},
+author = {{https://golang.org/pkg/runtime/trace/}},
 url={https://golang.org/pkg/runtime/trace/},
 }
 
 
 @Manual{go-package-ast,
 title={Package AST},
-author = {Golang},
+author = {{https://golang.org/pkg/go/ast/}},
 url={https://golang.org/pkg/go/ast/},
 }
 
@@ -2295,6 +2349,7 @@ institution	= {Google, Inc.}
 
 @Manual{opentracing4go,
 title={OpenTracing API for Go},
+author={{https://github.com/opentracing/opentracing-go}},
 url={https://github.com/opentracing/opentracing-go},
 }
 
@@ -2386,6 +2441,7 @@ keywords = {distributed systems, computer networks, multiprocess systems, clock 
 @Manual{go-memModel,
 title={The Go Memory Model},
 year = {2014},
+author={{https://golang.org/ref/mem}},
 url={https://golang.org/ref/mem},
 }
 
@@ -2460,6 +2516,8 @@ url={https://github.com/golang/go/issues/12734},
 
 
 @Manual{goParserSource,
+title={Package Parser},
+author={{https://golang.org/src/internal/trace/parser.go}},
 url={https://golang.org/src/internal/trace/parser.go},
 }
 
@@ -2556,11 +2614,13 @@ series = {ISSTA '98}
 
 @Manual{goleak,
 title={Uber goleak},
+author={{https://github.com/uber-go/goleak}},
 url={https://github.com/uber-go/goleak},
 }
 
 @Manual{lockdl,
 title={Online deadlock detection in go (golang)},
+author={{https://github.com/sasha-s/go-deadlock}},
 url={https://github.com/sasha-s/go-deadlock},
 }
 
@@ -2582,10 +2642,13 @@ url={https://sc20.supercomputing.org/proceedings/sotp/sotp_pages/sotp126.html},
 }
 
 @Manual{moby-28462-commit,
+title={moby-28462-commit},
+author={{https://github.com/moby/moby/issues/28405}},
 url={https://github.com/moby/moby/issues/28405},
 }
 
 
 @Manual{goexit-line-of-code,
+author={{https://golang.org/src/runtime/proc.go?s=98638:98652#L3409}},
 url={https://golang.org/src/runtime/proc.go?s=98638:98652#L3409},
 }

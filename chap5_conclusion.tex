@@ -1,3 +1,35 @@
 %%% -*-LaTeX-*-
 
-\chapter{}
+\chapter{Conclusion}
+\label{sec:ch5}
+This dissertation presented a series of tools that combine concurrent debugging approaches to aid debugging using efficient data collection and automated analysis frameworks.
+%
+We presented \parlot, a portable low overhead dynamic binary instrumentation-based whole-program tracing approach that can support various dynamic program analyses, including debugging.
+%
+Key properties of \parlot include its on-the-fly trace collection and compression that reduces timing jitter, I/O bandwidth, and storage requirements to such a degree that whole-program call/return traces can be collected efficiently even at scale.
+%
+We evaluated various versions of \parlot created by disabling/enabling compression.
+%
+Our metrics include the tracing overhead, required bandwidth, achieved compression ratio, initialization overhead, and the overall impact of compression.
+%
+Detailed evaluations on the NAS parallel benchmarks running on up to 1024 cores establish the merit of our tool and our design decisions. \parlot can collect more than 36 MB worth of data per core per second while only needing 56 kB/s of bandwidth and slowing down the application by 2.7x on average.
+%
+These results are auspicious in supporting whole program tracing and debugging, particularly considering that most of the overhead is due to the DBI tool and not \parlot.
+
+
+We described the design of DiffTrace, the first tool we know of that situates debugging around {\em whole program} diffing, and~(1)~provides user-selectable front-end filters of function calls to keep;
+~(2)~summarizes loops based on state-of-the-art algorithms to detect loop-level behavioral differences;
+~(3)~condenses the loop-summarized traces into concept lattices that are built using incremental algorithms;~(4)~and clusters behaviors using hierarchical clustering and ranks them by similarity to detect and highlight the most salient differences.
+%a
+
+Lastly, we presented \goat, an end-to-end analysis and debugging framework for concurrent Go applications.
+%
+\goat combines static and dynamic methods to gather evidence about the dynamic behavior of concurrency primitives, model the program's concurrency behavior, and explore the interleaving space to reveal the flaws.
+%
+\goat detects all 68 blocking bugs of GoKer benchmark, which are the bug kernels adopted from the top nine open-source projects written in Go.
+%
+Moreover, by defining a set of coverage requirements and dynamic measurement, we quantify the quality of the schedule-space exploration of \goat.
+%
+Proposed coverage requirements accurately reflect the dynamic behavior of program executions and testing iterations.
+%
+The engineering of \goat is flexible and extensible to more advanced components.

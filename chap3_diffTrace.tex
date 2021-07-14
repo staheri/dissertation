@@ -1,30 +1,25 @@
 %%% -*-LaTeX-*-
 
 \chapter{Whole-Program Trace Analysis}
-We present a tool called
-DiffTrace that approaches debugging via {\em whole program} tracing and
+\label{sec:ch3}
+
+This chapter is based on the work published at the 2019 IEEE International Conference on Cluster Computing \cite{diffTrace}\footnote{\copyright 2019 IEEE. Adapted, with permission, from S. Taheri, I. Briggs, M. Burtscher and G. Gopalakrishnan, ``DiffTrace: Efficient Whole-Program Trace Analysis and Diffing for Debugging'', 2019 IEEE International Conference on Cluster Computing (CLUSTER), 2019, pp. 1-12, doi: 10.1109/CLUSTER.2019.8891027}.
+%
+We present a tool called \textbf{DiffTrace} that approaches debugging via {\em whole program} tracing and
 diffing of typical and erroneous traces.
 %
-After collecting these traces,
-a user-configurable front-end filters out irrelevant function calls
-and then summarizes loops in the retained function
-calls based on state-of-the-art loop extraction algorithms.
+After collecting these traces, a user-configurable front-end filters out irrelevant function calls and then summarizes loops in the retained function calls based on state-of-the-art loop extraction algorithms.
 %
-Information about these loops is inserted
-into concept lattices, which we use to
-compute salient dissimilarities to narrow down bugs.
+Information about these loops is inserted into concept lattices, which we use to compute salient dissimilarities to narrow down bugs.
 %
-DiffTrace is a clean start that addresses
-debugging features missing in existing approaches.
+DiffTrace is a clean start that addresses debugging features missing in existing approaches.
 %
-Our experiments on an MPI/OpenMP program called
-ILCS and initial measurements on LULESH, a DOE miniapp,
-demonstrate the advantages of the proposed debugging approach.
+Our experiments on an MPI/OpenMP program called ILCS and initial measurements on LULESH, a DOE miniapp, demonstrate the advantages of the proposed debugging approach.
 
 \section{Introduction}
 \label{sec:ch3_intro}
 \input{diffTrace/intro.tex}
- 
+
 
 \section{DiffTrace Overview}
 \label{sec:ch3_overview}
