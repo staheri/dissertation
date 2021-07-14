@@ -1,6 +1,6 @@
 \subsection{High-level Overview}
 
-\begin{figure}[]
+\begin{figure}[t]
 \caption{DiffTrace Overview}
 \includegraphics[width=1\textwidth]{diffTrace/figs/overview4.pdf}
 %\includegraphics[]{figs/overview.png}
@@ -76,7 +76,7 @@ an overall collection of process traces.
 %
 The reason is that even in a collection of MPI processes or threads within
 these processes, some processes/threads may serve as a master while others
-serve as workers~\cite{patterns-for-par-prog-mattson}.
+serve as workers.
 %
 Thus, we must have a base level of similarities computed even for normal
 behaviors and then compute how {\em this similarity relation changes} when
@@ -123,7 +123,7 @@ Such a ``playground'' for developing and exploring new methods for
 debugging does not exist in HPC.
 %
 There is also the intriguing possibility that
-many of the 30-odd tools mentioned in \S\ref{sec:intro}
+many of the 30-odd tools mentioned in \S\ref{sec:ch4_intro}
 {\em can be made to focus on the problems highlighted
   by diffNLR}, thus gaining efficiency (this will be part of our future work).
 
@@ -149,12 +149,6 @@ on JSM$_{faulty}$ directly.
 
 
 
-\begin{figure}[]
-\centering
-\caption{Simplified MPI implementation of Odd/Even Sort}
-\includegraphics[width=0.40\textwidth]{diffTrace/figs/oddEven.png}
-\label{fig.oddEven}
-\end{figure}
 
 
 \subsection{Example Walk-through}
@@ -171,6 +165,14 @@ values with their right neighbors, and in the \textit{odd phase},
 the odd processes exchange values with their right neighbors.
 %
 %The for loop in line 4 of \texttt{oddEvenSort()} iterates over the phases of the algorithm. Based on the phase, the appropriate partner for each rank is computed by the function \texttt{findPtr()} (line 6). The odd/even ranks then exchange their chunks of data (lines 9-13) and sort, merge, and copy operations are performed on the received data (denoted by \texttt{...} in line 15 for simplicity).
+
+
+\begin{figure}[b]
+\centering
+\caption{Simplified MPI implementation of Odd/Even Sort}
+\includegraphics[width=.8\textwidth]{diffTrace/figs/oddEven.png}
+\label{fig.oddEven}
+\end{figure}
 
 A waiting trap in this example is this: the user may have
 swapped the {\tt Recv; Send} order in the {\tt else} part,
@@ -193,7 +195,7 @@ $T_i$ is the trace that stores the function calls of process $i$.
 
 
 
-\input{diffTrace/tabs/oddEvenPT-NLR.tex}
+
 
 \subsection{Nested Loop Representation}
 
@@ -208,6 +210,10 @@ we have adapted the Nested Loop Recognition (NLR) algorithm by Ketterlin et al.~
 to detect repetitive patterns in ParLOT traces (cf.~Section \ref{subsec:algo-nlr}).
 Detecting such patterns can be used to measure the progress of each thread,
 revealing unfinished or broken loops that may be the consequence of a fault.
+
+
+\input{diffTrace/tabs/oddEvenPT-NLR.tex}
+
 
 For example, the loop in line 3 of \texttt{oddEvenSort()} (Figure \ref{fig.oddEven}) iterates
 four times when run with four processes.
@@ -297,10 +303,19 @@ Table~\ref{tab:sampleContext} and is interpreted as follows:
 
 \begin{figure}[t]
 \centering
-\scalebox{0.5}{
-\includegraphics[width=3.4in]{diffTrace/figs/sampleCL.png}}
-\caption{Sample Concept Lattice from Object-Attribute Context in Table \ref{tab:sampleContext}}
-\label{fig:sampleCL}
+\begin{minipage}{.45\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{diffTrace/figs/sampleCL.png}
+  \caption{Sample Concept Lattice from Object-Attribute Context in Table \ref{tab:sampleContext}}
+  \label{fig:sampleCL}
+\end{minipage}
+\begin{minipage}{.45\textwidth}
+\centering
+\includegraphics[width=.9\linewidth]{diffTrace/figs/oddEvenJSM2.pdf}
+\caption{Pairwise Jaccard Similarity Matrix (JSM) of MPI Processes in Sample Code}
+\label{fig:jsm2}
+\end{minipage}
+
 \end{figure}
 
 
@@ -312,13 +327,6 @@ Table~\ref{tab:sampleContext} and is interpreted as follows:
 %\label{fig:jsm}
 %\end{figure}
 
-\begin{figure}[]
-\centering
-\scalebox{0.8}{
-\includegraphics[width=3.4in]{diffTrace/figs/oddEvenJSM2.pdf}}
-\caption{Pairwise Jaccard Similarity Matrix (JSM) of MPI Processes in Sample Code}
-\label{fig:jsm2}
-\end{figure}
 
 % For any pair of $(T_i, T_j)$, the number of attributes in the Lowest Common Ancestor (LCA) node of $T_i$ and $T_j$ in the lattice is the number of attributes that $T_i$ and $T_j$ have in common (intersection). The sum of the number of attributes of the nodes on the path from each $T_i$ and $T_j$ to their LCA is the union. This property is one of the motivations for using concept lattices as classifier since it makes computing the union and intersection easy and fast.
 %
@@ -387,25 +395,27 @@ Figure \ref{fig.diffTraceOverview}.
 %Also, a different set of parameters might produce inaccurate suggestions (false positives).
 %
 
-\begin{figure}
-
-     \centering
-     \begin{subfigure}[b]{0.15\textwidth}
-        \centering
-		\includegraphics[width=\textwidth]{diffTrace/figs/legend.pdf}
-		\caption{Legend}
-		\label{fig:legend}
-	\end{subfigure}
-	     \hfill
-     \begin{subfigure}[b]{0.31\textwidth}
-         \centering
+\begin{figure}[t]
+\begin{minipage}{.2\textwidth}
+\centering
+\includegraphics[width=\textwidth]{diffTrace/figs/legend.pdf}
+\caption{Legend}
+\label{fig:legend}
+\end{minipage}
+\begin{minipage}{.38\textwidth}
+    \centering
 \includegraphics[width=\textwidth]{diffTrace/figs/b-11.mpi.0K10-5.pdf}
 \caption{swapBug}
 \label{fig:swapbug}
-     \end{subfigure}
-\caption{diffNLR Example}
-\label{fig:sampleDiffNLR}
-
+\end{minipage}
+%\caption{diffNLR Example}
+%\label{fig:sampleDiffNLR}
+\begin{minipage}{.38\textwidth}
+\centering
+\includegraphics[width=0.9\linewidth]{diffTrace/figs/adl-11.mpi.0K10-5.pdf}
+\caption{dlBug}
+\label{fig:dlbug}
+\end{minipage}
 \end{figure}
 
 To evaluate the effectiveness of DiffJSM, we planted two artificial bugs (\textit{swapBug}
@@ -440,12 +450,7 @@ To highlight the differences in an easy-to-understand manner, DiffTrace visually
 
 
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.3\textwidth]{diffTrace/figs/adl-11.mpi.0K10-5.pdf}
-\caption{dlBug}
-\label{fig:dlbug}
-\end{figure}
+
 \texttt{diff} takes two sequences $S_A$ and $S_B$ and computes the minimal \textit{edit} to convert $S_A$ to $S_B$. This algorithm is used in the GNU \texttt{diff} utility to compare two text files and in git for efficiently keeping track of file changes.
 Since ParLOT preserves the order of function calls, each trace $T_i$ is totally ordered. Thus \textit{diff} can expose the differences of a pair of $T$s. \textit{diffNLR} aligns common and different blocks of a pair of sequences (e.g., traces) horizontally and vertically, making it easier for the analyst to see the differences at a glance.
 For simplicity, our implementation of \textit{gdiff} only takes one argument $x$ that denotes \textit{the suspicious trace}.

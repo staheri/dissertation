@@ -107,13 +107,13 @@ We now elaborate on these points by addressing the following three problems.
 
 
 
-\paragraph{Problem 1 -- Collecting Whole-Program Heterogeneous Function-Call Traces
+\subsection{Problem 1 -- Collecting Whole-Program Heterogeneous Function-Call Traces
 Efficiently\/} Not only must we have the ability
 to record function calls and returns at one
 API such as MPI, increasingly we must collect calls/returns at multiple
 interfaces (e.g., OpenMP, PThreads, and even inner levels such as TCP).
 %
-The growing use of heterogeneous parallelization necessitates that we 
+The growing use of heterogeneous parallelization necessitates that we
 understand MPI and OpenMP activities (for example) to locate cross-API
 bugs that are often missed by other tools.
 %
@@ -144,7 +144,7 @@ thus making this approach practical, demanding
 only a few kilobytes per second per core of bandwidth.
 
 
-\paragraph{Problem 2 -- Need to Generalize Techniques for Outlier Detection\/}
+\subsection{Problem 2 -- Need to Generalize Techniques for Outlier Detection\/}
 Given that outlier detection is central to debugging,
 it is essential to use efficient representations of the traces
 to be able to systematically compute
@@ -182,7 +182,7 @@ We believe that these uses of concept lattices and refinement approaches
 for outlier detection are new in HPC debugging.
 
 
-\paragraph{Problem 3 -- Loop Summarization\/}
+\subsection{Problem 3 -- Loop Summarization\/}
 Most programs spend most of their time in loops.
 %
 Therefore, it is important to employ state-of-the-art algorithms for
@@ -207,37 +207,32 @@ This approach to summarizing loops can help manifest
 bugs where the program does not hang or crash but nevertheless
 runs differently in a manner that informs the developer engaged in debugging.
 
-{\bf Organization\/}: 
+{\bf Organization\/}:
 %
-\S\ref{sec:overview} illustrates the contributions of this paper on a simple example.
+\S\ref{sec:ch3_overview} illustrates the contributions of this paper on a simple example.
 %
-\S\ref{sec:algo} presents the algorithms underlying DiffTrace in more detail.
+\S\ref{sec:ch3_algo} presents the algorithms underlying DiffTrace in more detail.
 %
-\S\ref{sec:ilcs-case-study} summaries the experimental methodology before showing a medium-sized case study involving MPI and OpenMP.
+\S\ref{sec:ch3_ilcs-case-study} summaries the experimental methodology before showing a medium-sized case study involving MPI and OpenMP.
 %
-\S\ref{sec:lulesh} shows initial measurements and examples on LULESH~\cite{LULESH2:changes}, a DOE common mini app.
+\S\ref{sec:ch3_lulesh} shows initial measurements and examples on LULESH~\cite{LULESH2:changes}, a DOE common mini app.
 %
-\S\ref{sec:related} summarizes selected related works.
+\S\ref{sec:ch3_related} summarizes selected related works.
 %
-\S\ref{sec:discussion} concludes the paper with a discussion.
+\S\ref{sec:ch3_discussion} concludes the paper with a discussion.
 
-% 
+%
 % \Noindent To summarize, the key contributions of this paper are the following
 % \begin{itemize}
 % \item A method to organize function call traces collected from processes and
 %       threads into concept lattices, and a method to
 %       detect loops from dynamic traces (Section~\ref{sec3}).
-% 
+%
 % \item Details of the algorithms employed in DiffTrace (Section~\ref{sec4}).
-% 
+%
 % \item Experimental studies on a heterogeneous program called
 %       Iterated Local Champion Search (ILCS, Section~\ref{sec5}).
-% 
+%
 % \item Strengths and limitations of DiffTrace, plans for future work (Section~\ref{sec6}).
 % \end{itemize}
-% 
-
-
-
-
-
+%

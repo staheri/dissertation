@@ -4,7 +4,7 @@
 Our ultimate goal is to apply DiffTrace to complex HPC codes.
 %
 As a more complex example, we have executed the single-cycle LULESH2\cite{LULESH2:changes} with 8 MPI processes
-and 4 OMP threads (system configuration described in \S\ref{sec:ilcs-case-study})
+and 4 OMP threads (system configuration described in \S\ref{sec:ch3_ilcs-case-study})
 and collected ParLOT (main image) function calls.
 
 
@@ -42,7 +42,4 @@ that DiffTrace's ranking system suggests as the most affected traces by the bug.
 Since the fault in process 2 prevents other processes from making progress and successfully terminate,
 all of the process IDs appeared in the table.
 The generated diffNLRs clearly showed the point at which each process stopped making progress.
-%
-Due to lack of space, we did not include the relatively large diffNLRs of LULESH in this paper.
-However, all diffNLRs and related observations are available online via~\cite{diffTraceMaterials}.
 \input{diffTrace/tabs/luleshTable.tex}
