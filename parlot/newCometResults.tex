@@ -9,16 +9,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FROM RESULTS - average bandwidth
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[t]
+\begin{figure}[b]
 \centering
-\includegraphics[width=3.4in,height=1.9in]{parlot/figs.comet.newMed/comet_chartAvg_bw_B_p3_5.png}
+\includegraphics[width=.75\textwidth]{parlot/figs.comet.newMed/comet_chartAvg_bw_B_p3_5.png}
 \caption{  Average required bandwidth per core (kB/s) on the NPB applications - Input B}
 \label{comet_chartAvg_bw_B_p3_5}
 \end{figure}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=3.4in,height=1.9in]{parlot/figs.comet.newMed/comet_chartAvg_bw_C_p3_5.png}
+\includegraphics[width=.75\textwidth]{parlot/figs.comet.newMed/comet_chartAvg_bw_C_p3_5.png}
 \caption{ Average required bandwidth per core (kB/s) on the NPB applications - Input C}
 \label{comet_chartAvg_bw_C_p3_5}
 \end{figure}
@@ -35,9 +35,9 @@ On average, both \parlotm and \parlota outperform \callgrind. The bolded numbers
 
 The key takeaway point is that the overhead of \parlot is roughly a factor of two to three, which we believe users may be willing to accept, for example, if it helps them debug their applications. This is promising especially when considering how detailed the collected trace information is and that most of the overhead is due to \pin (see \S\ref{subsec:pinit}). Note that \parlot 's overhead is typically lower than that of \callgrind, which collects less information.
 
-The overhead of \parlot increases as we scale the applications to more compute nodes. However, the increase is quite small. Going from 16 to 1024 cores, a 64-fold increase in parallelism, only increases the average overhead by between 1.3- and 2.1-fold. In contrast, \callgrind 's overhead decreases with increasing node count, making it more scalable. Having said that, \callgrind 's overhead is larger for the C inputs whereas \parlot 's overhead is larger for the smaller B inputs. In other words, \parlot scales better to larger inputs than \callgrind.
+The overhead of \parlot increases as we scale the applications to more compute nodes. However, the increase is quite small. Going from 16 to 1024 cores, a 64-fold increase in parallelism, only increases the average overhead by between 1.3- and 2.1-fold. In contrast, \callgrind's overhead decreases with increasing node count, making it more scalable. Having said that, \callgrind's overhead is larger for the C inputs whereas \parlot 's overhead is larger for the smaller B inputs. In other words, \parlot scales better to larger inputs than \callgrind.
 
-\parlot 's scaling behavior can be explained by correlating it with the expected function-call frequency. When distributing a fixed problem size over more cores, each core receives less work. As a consequence, less time is spent in the functions that process the work, resulting in more function calls per time unit, which causes more work for \parlot. In contrast, when distributing a larger problem size over the same number of cores, each core receives more work. Hence, more time is spent in the functions that process the work, resulting in fewer function calls per time unit, which causes less work for \parlot and therefore less tracing overhead. Hence, we believe \parlot 's overhead to be even lower on long-running inputs, which is where our tracing technique is needed the most.
+\parlot's scaling behavior can be explained by correlating it with the expected function-call frequency. When distributing a fixed problem size over more cores, each core receives less work. As a consequence, less time is spent in the functions that process the work, resulting in more function calls per time unit, which causes more work for \parlot. In contrast, when distributing a larger problem size over the same number of cores, each core receives more work. Hence, more time is spent in the functions that process the work, resulting in fewer function calls per time unit, which causes less work for \parlot and therefore less tracing overhead. Hence, we believe \parlot 's overhead to be even lower on long-running inputs, which is where our tracing technique is needed the most.
 
 
 In summary, \parlot 's overhead is in the single digits for all evaluated applications and configurations, including for 1024-core runs. It appears to scale reasonably to larger node counts and well to larger problem sizes.
@@ -61,16 +61,16 @@ We see that the required bandwidth for different input sizes of the NPB applicat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FROM RESULTS - average compression ratio
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}[t]
+\begin{figure}[b]
 \centering
-\includegraphics[width=3.2in,height=1.9in]{parlot/figs.comet.newMed/comet_chartAvg_cr_B_p3_5.png}
+\includegraphics[width=.75\textwidth]{parlot/figs.comet.newMed/comet_chartAvg_cr_B_p3_5.png}
 \caption{ Average compression ratio of \parlot on the NPB applications - Input B}
 \label{comet_chartAvg_cr_B_p3_5}
 \end{figure}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=3.2in,height=1.9in]{parlot/figs.comet.newMed/comet_chartAvg_cr_C_p3_5.png}
+\includegraphics[width=.75\textwidth]{parlot/figs.comet.newMed/comet_chartAvg_cr_C_p3_5.png}
 \caption{ Average compression ratio of \parlot on the NPB applications - Input C}
 \label{comet_chartAvg_cr_C_p3_5}
 \end{figure}
@@ -84,9 +84,9 @@ We see that the required bandwidth for different input sizes of the NPB applicat
 
 
 
-\begin{figure}[t]
+\begin{figure}[b]
 \centering
-\includegraphics[width=3.1in,height=1.9in]{parlot/figs.comet.newMed/comet_chartDet_B_wc_byTool_p3_5.png}
+\includegraphics[width=.75\textwidth]{parlot/figs.comet.newMed/comet_chartDet_B_wc_byTool_p3_5.png}
 \caption{ Tracing overhead breakdown - Input B}
 \label{comet_chartDet_B_wc_byTool_p3_5}
 \end{figure}
@@ -94,7 +94,7 @@ We see that the required bandwidth for different input sizes of the NPB applicat
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=3.1in,height=1.9in]{parlot/figs.comet.newMed/comet_chartDet_C_wc_byTool_p3_5.png}
+\includegraphics[width=.75\textwidth]{parlot/figs.comet.newMed/comet_chartDet_C_wc_byTool_p3_5.png}
 \caption{ Tracing overhead breakdown - Input C}
 \label{comet_chartDet_C_wc_byTool_p3_5}
 \end{figure}
@@ -103,7 +103,7 @@ We see that the required bandwidth for different input sizes of the NPB applicat
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=3.2in,height=1.9in]{parlot/figs.comet.newMed/comet_BX2_Main_16_B_p3_5.png}
+\includegraphics[width=.75\textwidth]{parlot/figs.comet.newMed/comet_BX2_Main_16_B_p3_5.png}
 \caption{ Variability of \parlotm overhead on 16 nodes - Input B}
 \label{comet_BX2_Main_16_B_p3_5}
 \end{figure}
@@ -171,14 +171,14 @@ phase of \parlot slows down the native execution.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=3in,height=1.95in]{parlot/figs.comet.newMed/comet_chartDet_B_woc_byTool_p3_5.png}
+\includegraphics[width=.7\textwidth]{parlot/figs.comet.newMed/comet_chartDet_B_woc_byTool_p3_5.png}
 \caption{\parlotnc tracing overhead breakdown - Input B}
 \label{comet_chartDet_B_woc_byTool_p3_5}
 \end{figure}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=3in,height=1.95in]{parlot/figs.comet.newMed/comet_chartDet_C_woc_byTool_p3_5.png}
+\includegraphics[width=.7\textwidth]{parlot/figs.comet.newMed/comet_chartDet_C_woc_byTool_p3_5.png}
 \caption{ \parlotnc tracing overhead breakdown - Input C}
 \label{comet_chartDet_C_woc_byTool_p3_5}
 \end{figure}
