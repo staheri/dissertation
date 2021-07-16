@@ -1,6 +1,6 @@
 %%% -*-LaTeX-*-
 
-\chapter{Conclusion}
+\chapter{Conclusion and Future Work}
 \label{sec:ch5}
 This dissertation presented a series of tools that combine concurrent debugging approaches to aid debugging using efficient data collection and automated analysis frameworks.
 %
@@ -15,6 +15,7 @@ Our metrics include the tracing overhead, required bandwidth, achieved compressi
 Detailed evaluations on the NAS parallel benchmarks running on up to 1024 cores establish the merit of our tool and our design decisions. \parlot can collect more than 36 MB worth of data per core per second while only needing 56 kB/s of bandwidth and slowing down the application by 2.7x on average.
 %
 These results are auspicious in supporting whole program tracing and debugging, particularly considering that most of the overhead is due to the DBI tool and not \parlot.
+%
 
 
 We described the design of DiffTrace, the first tool we know of that situates debugging around {\em whole program} diffing, and~(1)~provides user-selectable front-end filters of function calls to keep;
@@ -32,4 +33,37 @@ Moreover, by defining a set of coverage requirements and dynamic measurement, we
 %
 Proposed coverage requirements accurately reflect the dynamic behavior of program executions and testing iterations.
 %
-The engineering of \goat is flexible and extensible to more advanced components.
+
+\section{Future Work}
+The following is the list of improvements to be made for each tool and potential future work in dynamic analysis tools.
+
+\subsection{\parlot}
+\begin{itemize}
+  \item Allowing users to selectively trace at specific interfaces: doing so can further increase compression efficiency
+  by reducing the variety of function calls to be handled by
+  the compressor.
+  \item The need to bring down initialization overheads: experiments show the majority of overhead belongs to the initialization of Pin. Switching to a less general-purpose DBI tool improves the efficiency of \parlot.
+\end{itemize}
+\subsection{DiffTrace}
+In our future work, we will improve DiffTrace components as follows:
+%
+\begin{itemize}
+  \item Optimizing them to exploit multi-core CPUs, thus reducing the overall analysis time.
+  \item Converting ParLOT traces into Open Trace Format (OTF2) by logically timestamping trace entries to mine temporal properties of functions such as \textit{happened-before}~\cite{lamport}.
+  \item Conducting systematic bug-injection to see whether concept lattices and loop structures can be used as elevated features for precise bug classifications via machine learning and neural network techniques.
+  \item Taking up more challenging and real-world examples to evaluate DiffTrace against similar tools and release it to the community.
+\end{itemize}
+\subsection{\goat}
+The engineering of \goat is flexible and extensible to more advanced components. The following is the list of potential improvements to the framework:
+\begin{itemize}
+  \item The concurrency dynamic tracing of Go applications enables extensive investigation of NLP/ML for concurrent debugging by training models (\eg, word2vec) based on collected traces for automatic anomaly detection.
+  \item The \goat API can ``control'' which goroutine to execute next by maintaining the history of executed interleavings and goroutine ids. This way, we can systematically explore all possible interleavings efficiently to achieve a higher coverage percentage.
+  \item We are actively developing \goat as an open-source, easy-to-use (within an independent container) testing tool. With the release of \goat, we enable developers to explore the schedule space of their concurrent applications to reveal potential flaws.
+\end{itemize}
+\subsection{Dynamic Analysis Tools}
+The following enumerates a few future directions in dynamic analysis tools for HPC/Cloud community.
+\begin{itemize}
+  \item Finding the sweet spot between \textit{maximal data collection} and \textit{minimal slowdown} is the key for a dynamic analysis tool to gain acceptance and practical use for real-world and large-scale applications. Picking the right data to collect maximizes the trade-off.
+  \item Both static and dynamic analysis tools have advantages and limitations. Complementing ideas from both sides help to achieve a high degree of confidence about the program's bug freedom while enabling practical use of the tool in production languages.
+  \item It is not feasible to put the developer completely out of the ``debugging'' loop through fully automated mechanisms. Tools may produce false positives and miss bugs that did not occur. It is the developer's task to achieve a high degree of confidence in her software. If a bug is revealed during testing or verification, the developer needs to fix the bug or incorporate the suggested fix. In other words, the developer is the one who closes the debugging circle and delivers the software. Middleware tools like \parlot, DiffTrace, and \goat, which provide a human-readable representation of dynamic behavior of complex programs, can drastically reduce the cost of debugging.
+\end{itemize}
