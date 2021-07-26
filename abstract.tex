@@ -20,8 +20,10 @@ Our methods aim to facilitate the concurrent debugging process by providing effi
 %
 First, we introduce \parlot, a whole-program call tracing framework for HPC applications (MPI+X) that highly compresses the traces (up to more than 21000 times) while adding minimal overhead with an average required bandwidth of just 56 kB/s per core.
 %
-Second, we present DiffTrace, a series of automated data abstraction, representation, and visualization techniques that differentiates the collected ParLOT traces and narrows the search down to just a few candidates of buggy traces.
+Second, we present DiffTrace, a series of automated data abstraction, representation, and visualization techniques that differentiate the collected \parlot traces and narrows the search space down to just a few candidates of buggy traces.
 %
 Finally, we illustrate \goat, an end-to-end framework for automated tracing, analysis, and testing of concurrent Go applications.
 %
-We also propose a set of coverage metrics to measure the quality of testing in CSP-like concurrent languages.
+We also propose a set of coverage metrics to measure the quality of schedule exploration in CSP-like concurrent languages.
+%
+Our evaluation of \goat on a recent Go concurrency bug benchmark of real-world programs shows a 100\% success rate in detecting blocking bugs.
