@@ -41,25 +41,25 @@ We have compared \goat against three existing dynamic detectors:
   \item \textit{goleak} \cite{goleak}: This leak detector from Uber checks the program stack at the end of the main goroutine's execution to find the application-level goroutines that remained in the stack (\ie, leaked).
 \end{itemize}
 
+\begin{figure}[]
+   \centering
+   \includegraphics[width=0.8\textwidth]{goat/figs/coverage_etcd7443.pdf}
+   \label{fig:etcd_coverage}
+   \caption{Coverage percentage after each iteration of \goat with various $D$ values for \texttt{etcd7443}. Iterations on the X axis of figures end when the respective bug is first detected.}
+   \label{fig:coverage}
 
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.46\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{goat/figs/coverage_etcd7443.pdf}
-        \caption{\texttt{etcd7443}}
-        \label{fig:etcd_coverage}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.46\textwidth}
-       \centering
-       \includegraphics[width=\textwidth]{goat/figs/coverage_kubernetes11298.pdf}
-       \caption{\texttt{kuberenetes11298}}
-       \label{fig:kubernetes_coverage}
-     \end{subfigure}
-        \caption{Coverage percentage after each iteration of \goat with various $D$ values for two representative bugs. Iterations on the X axis of figures end when the respective bug is first detected. E.g., \goat($D2$) detects the bug in \texttt{kuberenetes11298} after 38 executions at 52.23\% coverage percentage.}
-        \label{fig:coverage}
 \end{figure}
+
+\begin{figure}[t]
+
+       \centering
+       \includegraphics[width=.8\textwidth]{goat/figs/coverage_kubernetes11298.pdf}
+       \label{fig:kubernetes_coverage}
+       \caption{Coverage percentage after each iteration of \goat with various $D$ values for \texttt{kuberenetes11298}. Iterations on the X axis of figures end when the respective bug is first detected. E.g., \goat($D2$) detects the bug in \texttt{kuberenetes11298} after 38 executions at 52.23\% coverage percentage.}
+       \label{fig:coverage}
+
+\end{figure}
+
 
 
 

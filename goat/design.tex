@@ -120,7 +120,7 @@ The alphabet of trace events is total of 49 events \cite{goParserSource}, catego
 Although the event vocabulary is rich enough to model comprehensive goroutine latency and blocking behavior accurately,
 the vocabulary lacks concurrency primitive usage events for the construction of concurrency models.
 %
-We enrich the standard tracing mechanism with 14 additional events to enable the production of dynamic models from the program's concurrency behavior:
+We enrich the standard tracing mechanism with 14 additional events \cite{ect-arxiv} to enable the production of dynamic models from the program's concurrency behavior:
 \begin{itemize}
     \item \textbf{Channel:} For each channel operation (make, send, receive, close), ECT includes an event with a unique id assigned to each channel.
     \item \textbf{(RW)Mutex, WaitGroup \& Conditional Variables:} Similar to channels, we assign a unique id to each concurrency object and emit an event for each of their operations (lock, unlock, rlock, runlock, add, wait, signal, broadcast).
@@ -289,7 +289,7 @@ We say two goroutines $G_m$ and $G_n$ in the tests $t_i$ and $t_j$ are \textit{e
 \begin{table}[]
 \caption{Output of each tool on GoKer \cite{yuan-gobench-cgo21} blocking bugs. Detected bug (minimum \# of executions required) -- \textbf{X (1000)}: the tool is not able to detect any bug after 1000 executions. \textbf{PDL}: Partial Deadlock, \textbf{GDL}: Global Deadlock, \textbf{PDL-k}: Partial Deadlock with \textit{k} number of goroutines leaked. \textbf{DL}: A warning for potential deadlock is issued. \textbf{TO/GDL}: The global deadlock is detected because none of goroutines made any progress after 30 seconds, \textbf{CRASH}: The execution paniced because of a flaw in the execution (e.g., send on closed channel panic), \textbf{HANG}: The tool halt for more than 10 minutes.}
 \centering
-\scalebox{0.72}{
+\scalebox{0.46}{
     \input{goat/tabs/comparison}
   }
 \label{tab:comparison}

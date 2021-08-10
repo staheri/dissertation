@@ -1,4 +1,4 @@
-\begin{figure}
+\begin{figure}[t]
      \centering
      \begin{subfigure}[b]{0.31\textwidth}
         \centering
@@ -24,6 +24,8 @@
         \label{fig:three graphs}
 \end{figure}
 
+
+
 ILCS is a scalable framework for running iterative local searches on HPC platforms~\cite{ilcs}.
 %
 Providing serial CPU and/or single-GPU code, ILCS executes this code in parallel between compute nodes (MPI) and within them (OpenMP and CUDA).
@@ -41,7 +43,7 @@ Moreover, we inserted ``hidden'' faults that do not crash the program such as vi
 %
 The goal was to see how effectively DiffTrace can analyze the resulting traces and how close it can get to the root cause of the fault.
 %
-\input{diffTrace/tabs/ilcsPseudoCode-compact.tex}
+
 
 %
 We collected ParLOT (main image) traces from the execution of ILCS-TSP with 8 MPI processes and 4 OpenMP threads per process on the XSEDE-PSC Bridges supercomputer whose compute nodes have 128 GB of main memory and contain 2 Intel Haswell (E5-2695 v3) CPUs with 14 cores each running at 2.3 - 3.3 GHz.
@@ -106,7 +108,6 @@ The corresponding diffNLR(6.4) presented in Figure~\ref{diffNLR-6-4} clearly sho
 %\end{figure}
 
 
-
 \subsection{MPI Bug: Deadlock Caused by Fault in Collective}
 
 By forcing process 2 to invoke MPI\_Allreduce (line 24) with a wrong size, we can inject a \textit{real deadlock}.
@@ -139,9 +140,7 @@ Beyond this point, the bug-free process continues to the end of the program
 %\end{figure}
 %
 
-\input{diffTrace/tabs/mc1-mc-6-4.tex}
 
-\input{diffTrace/tabs/ar1-ws-all-nn.tex}
 
 
 
@@ -159,7 +158,7 @@ The first few suspicious processes listed in Table~\ref{tab:ar1-wo-0-nn} are inc
 %
 Looking at the corresponding diffNLR(5) output in Figure~\ref{diffNLR-5} makes it clear why process 5 was singled out. In the buggy run, it executes many more MPI\_Bcast calls than in the bug-free run because the frequency in which local ``optimums'' are produced has changed. Though this should affect all traces equally, which has reflected in the diffNLR of other traces. We are presenting these tables and figures to show that DiffTrace can reveal the impact of silent bugs like the wrong operation. Such data representation via suggested tables and diffNLRs helps developers to gain insight into the general behavior of the execution. More accurate results can be obtained by refining the parameters and collecting more profound traces (e.g., ParLOT(all images)). This would be part of our future work to find the set of parameters for different classes of bugs to maximize accuracy.
 
-\input{diffTrace/tabs/ar1-wo-0-nn.tex}
+
 
 %\begin{figure}[]
 %\centering
