@@ -11,7 +11,7 @@ $R_i$ is covered by test execution $t$ if the statement at location $R_i$ is exe
 %
 The \textit{coverage percentage} of a test $\mathcal{T}$ is the ratio of the requirements covered by at least one execution over the number of all requirements ($|R|$).
 
-As explained in section \ref{sec:bg}, concurrent software testing frameworks perform testing iterations to explore the schedule-space and expose flaws.
+As explained in Section \ref{sec:bg}, concurrent software testing frameworks perform testing iterations to explore the schedule-space and expose flaws.
 %
 Depending on the class of target bug, different coverage metrics are proposed and used for concurrent software testing.
 %
@@ -38,7 +38,7 @@ Bron et. al,\cite{bron-appSyncCov-ppopp05} enumerates four major characteristics
 
 Defining a new coverage metric to satisfy above characteristics requires an accurate and proper mental model of target bugs.
 %
-Based on our observations from execution of Go applications and bug kernels on the behavior of concurrency primitives, we define a set of coverage requirements (summarized in table \ref{tab:cov_req}):
+Based on our observations from execution of Go applications and bug kernels on the behavior of concurrency primitives, we define a set of coverage requirements (summarized in Table \ref{tab:cov_req}):
 %
 \begin{itemize}
   \item \textbf{Req1 (Send/Recv):} \{\texttt{blocked}, \texttt{unblocking}, \texttt{NOP}\} -- Goroutine $G_1$ is either \textit{blocked} on a channel send (receive) if the receiver (sender) goroutine $G_2$ is not ready or \textit{unblocking} the waiting receiver (sender) goroutine $G_2$. A channel send or receive might also be neither blocked nor unblocking (NOP) for buffered channels.
@@ -120,13 +120,6 @@ Recall that D is the bound on the number of yields that we inject to the native 
 %
 These figures show that
 %
-
-\begin{figure}
-\centering
-  \includegraphics[width=.95\linewidth]{figs/coverage_etcd7443.pdf}
-  \caption{etcd7442 coverage}
-  \label{fig:etcd_coverage}
-\end{figure}
 
 
 \begin{figure}

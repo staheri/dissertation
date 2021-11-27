@@ -2,7 +2,7 @@ Based on a proposed bug taxonomy for Go \cite{tu-concurrentBugs-asplos19}, bugs 
 %
 Blocking bugs historically refer to situations where one or more processing units (\eg goroutines) are blocked, waiting for an external signal to resume (\ie deadlocks).
 %
-As mentioned in section \ref{sec:bg}, the built-in deadlock detector (if not disabled \cite{go-netDeadlock}) only detects global deadlocks where the main goroutine is blocked and ignores other goroutines' states. For instance, more than 70\% of blocking bugs (partial deadlocks and leaks) in GoKer \cite{GoKer} are not detectable by the built-in deadlock detector.
+As mentioned in Section \ref{sec:bg}, the built-in deadlock detector (if not disabled \cite{go-netDeadlock}) only detects global deadlocks where the main goroutine is blocked and ignores other goroutines' states. For instance, more than 70\% of blocking bugs (partial deadlocks and leaks) in GoKer \cite{GoKer} are not detectable by the built-in deadlock detector.
 %
 
 As we have shown in our previous work \cite{parlot,difftrace}, dynamic tracing is an effective way in debugging large-scale applications.
@@ -15,9 +15,9 @@ An execution model from the interactions of processors, OS threads, goroutines, 
 %
 By enriching the tracer package with concurrency events, we place the missing pieces for human debuggers and analysis tools to automatically obtain comprehensive models from the dynamic concurrency behavior of programs with minimal overhead.
 %
-In the remainder of this section, we briefly describe the enhancement that we made to the tracer package to automatically obtain Execution Concurrency Trace (ECT) from program execution reflecting accurate behavior of Go concurrency primitives in section \ref{sec:ect} (overhead and scalability report is available in \cite{ect-arxiv}).
+In the remainder of this section, we briefly describe the enhancement that we made to the tracer package to automatically obtain Execution Concurrency Trace (ECT) from program execution reflecting accurate behavior of Go concurrency primitives in Section \ref{sec:ect} (overhead and scalability report is available in \cite{ect-arxiv}).
 %
-Then in section \ref{sec:dld}, we explain how we exploit ECT contents for post-mortem debugging of the program.
+Then in Section \ref{sec:dld}, we explain how we exploit ECT contents for post-mortem debugging of the program.
 %
 Sections \ref{sec:dl_instrument} and \ref{sec:dl_evaluation} provide more details on implementation and evaluation of deadlock detection using program ECT.
 
@@ -78,13 +78,13 @@ The alphabet of ECT is total of 64 events -- 49 from original tracer package \ci
 \begin{itemize}
     \item \textbf{Channel:} For each channel operation (make, send, receive, close), ECT includes an event with a unique id assigned to each channel.
     \item \textbf{Mutex, WaitGroup \& Conditional Variables:} Similar to channels, we assign a unique id to each concurrency object and emit an event for each of their operations (lock, unlock, add, wait, signal, broadcast).
-    \item \textbf{Select \& Schedule:} The scheduler and the \textit{select} structure introduce non-determinism to the execution. We keep track of the decisions made by the scheduler and select statements to obtain an accurate decision path during execution.
+    \item \textbf{Select \& Schedule:} The scheduler and the \textit{select} structure introduce nondeterminism to the execution. We keep track of the decisions made by the scheduler and select statements to obtain an accurate decision path during execution.
 \end{itemize}
 
 %\stcmtside{how ECT captures concurrency blocking behavior}
 Blocking concurrency operations such as channels \textit{sends}/\textit{recvs}, mutex \textit{locks}, waitGroup/conditional variable \textit{wait} and \textit{select} (when none of the cases are available) prevents the executor goroutine from making progress.
 %
-For each blocking operation, ECT captures a pair of pre-operation and post-operation events (yellow and green boxes respectively).
+For each blocking operation, ECT captures a pair of preoperation and post-operation events (yellow and green boxes respectively).
 %
 Hence, ECT enables concurrency state modeling at any given step of execution.
 %

@@ -1,6 +1,6 @@
 \begin{frame}{}
   \lstset{language=C}
- \begin{lstlisting}[caption={ILCS Overview},label={lst:ilcs}]
+ \begin{lstlisting}[caption={ILCS overview},label={lst:ilcs}]
 main(argc, argv) {
  ... // initialization
  MPI_Init();
@@ -24,7 +24,7 @@ main(argc, argv) {
   } else { //master thread
    do {
     ...
-    MPI_AllReduce(); //broadcast the global champion 
+    MPI_AllReduce(); //broadcast the global champion
 	  ...
     MPI_AllReduce(); //broadcast the global champion P_id
     ...

@@ -48,6 +48,12 @@
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 
+@misc{iiswc_goat_visualizations,
+title={Supporting Material for IISWC submission},
+author={GOAT},
+url={https://anonymous.4open.science/r/iiswc_goat_visualizations},
+}
+
 @article{2-opt,
 author = {Johnson, David and A. McGeoch, Lyle},
 year = {1997},
@@ -190,11 +196,9 @@ eprint = {
 }
 
 @Manual{scipy,
-  author =    {Eric Jones and Travis Oliphant and Pearu Peterson and others},
+  author =    {{http://www.scipy.org/}},
   title =     {{SciPy}: Open source scientific tools for {Python}},
-  year =      {2001--},
-  url = "http://www.scipy.org/",
-  note = {[Online; accessed <today>]}
+  year =      {2001--}
 }
 
 
@@ -248,7 +252,7 @@ month={Feb},}
 
 
 @Manual{sequence-points-in-C,
- author = {Microsoft Developer Network},
+  author = {{https://msdn.microsoft.com/en-us/library/azk8zbxd.aspx}},
   title = {C Sequence Points},
   url = {https://msdn.microsoft.com/en-us/library/azk8zbxd.aspx},
   urldate = {2018-10-24}
@@ -257,7 +261,7 @@ month={Feb},}
 @INPROCEEDINGS{pmac,
     author = {Mustafa M. Tikir and Michael Laurenzano and Laura Carrington and Allan Snavely},
     title = {A.: PMaC Binary Instrumentation Library for PowerPC/AIX},
-    booktitle = {In: Workshop on Binary Instrumentation and Applications},
+    booktitle = {Workshop on Binary Instrumentation and Applications},
     year = {2006}
 }
 
@@ -286,7 +290,7 @@ month = {01},
 pages = {720-735},
 title = {A Framework for Scalable, Parallel performance Monitoring},
 volume = {22},
-booktitle = {Concurrency and Computation: Practice and Experience}
+journal = {Concurrency and Computation: Practice and Experience}
 }
 
 @article{hpcdoe,
@@ -299,7 +303,7 @@ booktitle = {Concurrency and Computation: Practice and Experience}
                Koushik Sen and
                Stephen F. Siegel and
                Armando Solar{-}Lezama},
-  title     = {Report of the {HPC} Correctness Summit, Jan 25-26, 2017, Washington,
+  title     = {Report of the {HPC} Correctness Summit, {J}an 25-26, 2017, {W}ashington,
                {DC}},
   journal   = {CoRR},
   volume    = {abs/1705.07478},
@@ -348,6 +352,7 @@ journal = {Computational Intelligence},
 volume = {11},
 number = {2},
 pages = {246-267},
+year = {1997},
 keywords = {concept lattice, Galois lattice, conceptual clustering, incremental algorithm, concept formation}
 }
 
@@ -559,7 +564,7 @@ eprint = {https://doi.org/10.1080/09528130210164170}
   author    = {Nicholas Nethercote and
                Julian Seward},
   title     = {Valgrind: {A} Program Supervision Framework},
-  journal   = {Electr. Notes Theor. Comput. Sci.},
+  journal   = {Electronic Notes in Theoretical Computer Science},
   volume    = {89},
   number    = {2},
   pages     = {44--66},
@@ -719,7 +724,7 @@ doi="10.1007/3-540-45706-2_10",
 }
 
 @Manual{ddt,
-  author = {Allinea, Arm},
+  author = {{https://www.allinea.com/products/ddt}},
   title = {Allinea DDT},
   url = {https://www.allinea.com/products/ddt},
   urldate = {2017-10-22}
@@ -795,7 +800,7 @@ month={Nov},}
 @article{lz,
 author = {Ziv, J. and Lempel, A.},
 title = {A Universal Algorithm for Sequential Data Compression},
-journal = {IEEE Trans. Inf. Theor.},
+journal = {IEEE Transactions on Information Theory},
 issue_date = {May 1977},
 volume = {23},
 number = {3},
@@ -823,7 +828,7 @@ year = {2018},
 @article{Ziv:2006:UAS:2263324.2269180,
  author = {Ziv, J. and Lempel, A.},
  title = {A Universal Algorithm for Sequential Data Compression},
- journal = {IEEE Trans. Inf. Theor.},
+ journal = {IEEE Transactions on Information Theory},
  issue_date = {May 1977},
  volume = {23},
  number = {3},
@@ -1523,7 +1528,7 @@ month={Nov},}
 @article{lamport,
  author = {Lamport, Leslie},
  title = {Time, Clocks, and the Ordering of Events in a Distributed System},
- journal = {Commun. ACM},
+ journal = {ACM Communication},
  issue_date = {July 1978},
  volume = {21},
  number = {7},
@@ -1768,6 +1773,15 @@ year = {2010},
 month = {jun}
 }
 
+@mastersthesis{mastersthesis,
+  author       = {Saeed Taheri},
+  title        = {A Tool for Automatic Suggestions for Irregular GPU Kernel Optimization},
+  school       = {Texas State University},
+  year         = 2014,
+  address      = {San Marcos, Texas},
+  month        = 12
+}
+
 @article{monosat,
   author    = {Sam Bayless and
                Noah Bayless and
@@ -1983,7 +1997,7 @@ keywords = {parallel programming, monitors, output, iterative arrays, classes, n
 @article{merkel2014docker,
   title={Docker: lightweight linux containers for consistent development and deployment},
   author={Merkel, Dirk},
-  journal={Linux journal},
+  journal={Linux Journal},
   volume={2014},
   number={239},
   pages={2},
@@ -2045,7 +2059,7 @@ keywords = {Behavioural types}
 author = {J. Zhao and H. Abe and  Y. Nomura and J. Cheng and K. Ushijima},
 title = {RunTime Detection of Communication Deadlocks in occam 2 Programs},
 year = {1997},
-booktitle = {Correct Models of Parallel Computing},
+title = {Correct Models of Parallel Computing},
 pages = {97-107},
 numpages = {10},
 }
@@ -2135,7 +2149,7 @@ series = {ASPLOS XIII}
 
 @inproceedings{lees-taxdc-asplos16,
 author = {Leesatapornwongsa, Tanakorn and Lukman, Jeffrey F. and Lu, Shan and Gunawi, Haryadi S.},
-title = {TaxDC: A Taxonomy of Non-Deterministic Concurrency Bugs in Datacenter Distributed Systems},
+title = {TaxDC: A Taxonomy of nondeterministic Concurrency Bugs in Datacenter Distributed Systems},
 year = {2016},
 isbn = {9781450340915},
 publisher = {Association for Computing Machinery},
@@ -2344,7 +2358,7 @@ series = {PLDI '07}
 
 
 @Manual{go-cmd-trace,
-author = {Golang},
+author = {{https://golang.org/cmd/trace/}},
 title={Command Trace},
 url={https://golang.org/cmd/trace/},
 }
@@ -2463,7 +2477,7 @@ number = {7},
 issn = {0001-0782},
 url = {https://doi.org/10.1145/359545.359563},
 doi = {10.1145/359545.359563},
-journal = {Commun. ACM},
+journal = {ACM Communnication },
 month = jul,
 pages = {558–565},
 numpages = {8},

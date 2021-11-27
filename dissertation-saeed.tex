@@ -43,11 +43,6 @@
 \usepackage{uuthesis-2016-h}  % MANDATORY package
 \usepackage{mythesis}
 
-
-% ParLoT
-%\usepackage{xcolor}
-%\usepackage[table,xcdraw]{xcolor}
-
 \usepackage{booktabs} % For formal tables
 \usepackage{numprint}
 \usepackage{xspace}
@@ -66,7 +61,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[noadjust]{cite}
+
 \usepackage{caption}
+\captionsetup[table]{skip=10pt}
+\captionsetup[figure]{skip=10pt}
+\captionsetup[listing]{skip=10pt}
 \usepackage{subcaption}
 
 \usepackage[noline]{algorithm2e}
@@ -94,7 +93,32 @@
 
 \usepackage[colorinlistoftodos]{todonotes}
 
+%\usepackage{titlesec}
 
+
+%\titleformat{\chapter}{\Huge\bfseries}{\chaptername\ \thechapter}{0pt}{\vskip 20pt\raggedright}%
+% Alter <after-sep> in the macro below to vary the separation after the \chapter title.
+%\titlespacing{\chapter}{0pt}{50pt}{\parskip}
+% \titlespacing{<command>}{<left>}{<before-sep>}{<after-sep>}[<right>]
+
+%\titleformat{\chapter}{\Huge\bfseries}{\chaptername\ \thechapter}{0pt}{\vskip 20pt\raggedright}%
+%\titleformat{\section}{\LARGE\bfseries}
+%\titleformat{\subsection}{\Large\bfseries}
+%\titleformat{\subsubsection}{\large\bfseries}
+%%\titleformat{\paragraph}{\large\bfseries}
+%\titleformat{\subparagraph}{\large\bfseries}
+%\titlespacing{\chapter}{0pt}{50pt}{\parskip}% \titlespacing{<command>}{<left>}{<before-sep>}{<after
+
+%\titleformat{\chapter}{\Huge\bfseries}{\chaptername\ \thechapter}{0pt}{\vskip 0pt\raggedright}%
+%\titleformat{\section}
+%{\normalfont\Large\bfseries}{\thesection}{1em}{}
+%\titleformat{\subsection}
+%{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+%\titleformat{\subsubsection}
+%{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+%\titlespacing{\chapter}{0pt}{20pt}{\parskip}% \titlespacing{<command>}{<left>}{<before-sep>}{<after
+%\titlespacing{\section}{0pt}{60pt}{\parskip}% \titlespacing{<command>}{<left>}{<before-sep>}{<after
+%\titlespacing{\subsection}{0pt}{20pt}{\parskip}% \titlespacing{<command>}{<left>}{<before-sep>}{<after
 
 %%% ====================================================================
 %%% The student-specific front matter fields are defined here:
@@ -136,20 +160,22 @@
 
 %%% Dates that must be adjusted for each academic term, and be permitted
 %%% according to the University of Utah Thesis Office:
-\submitdate             {July 2021}
+\submitdate             {December 2021}
 \copyrightyear          {2021}
 
 %%% Dates on which committee members approved the thesis
-\chairdateapproved      {}
-\firstdateapproved      {}
+\chairdateapproved      {08/06/2021}
+\firstdateapproved      {08/09/2021}
 \seconddateapproved     {}
-\thirddateapproved      {}
-\fourthdateapproved     {}
+\thirddateapproved      {08/05/2021}
+\fourthdateapproved     {08/05/2021}
 
 %%% ====================================================================
 %%% Typesetting begins here:
 
 \begin{document}
+\setlength{\pdfpagewidth}{8.5in}
+\setlength{\pdfpageheight}{11in}
 \include{macros}
 
 %% Comment out items by inserting a percent % character
@@ -188,10 +214,25 @@
 \pagestyle{headings} % NEW for sample-thesis-6
 
 \include {chap1_intro}
+%\newpage
+\include {chap1_figs}
+%\newpage
 
 \include {chap2_parlot}
+%\newpage
+\include {chap2_figs}
+%\newpage
+
 \include {chap3_diffTrace}
+%\newpage
+\include {chap3_figs}
+%\newpage
+
 \include {chap4_goat}
+%\newpage
+\include {chap4_figs}
+%\newpage
+
 \include {chap5_conclusion}
 %\include {chap3}
 %\include {chap4}

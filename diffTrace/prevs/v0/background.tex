@@ -1,21 +1,21 @@
 
 \hl{[[Here I tried to give an overview about different subsections of the background section]]}
 
-In this section, we provide some background that explains our methodology for data collection and data analysis towards debugging and locating potential root causes of the unexpected behavior. 
+In this section, we provide some background that explains our methodology for data collection and data analysis towards debugging and locating potential root causes of the unexpected behavior.
 %
 
 \hl{Section} \ref{subsec:parlot} \hl{:}
-The main source of whole-program dynamic behavior is provided by ParLOT, a dynamic binary tracing tool that captures all function calls and returns and compresses them on the fly (section \ref{subsec:parlot}), producing a set of highly compact \textit{ParLOT Traces} (PTs).
+The main source of whole-program dynamic behavior is provided by ParLOT, a dynamic binary tracing tool that captures all function calls and returns and compresses them on the fly (Section \ref{subsec:parlot}), producing a set of highly compact \textit{ParLOT Traces} (PTs).
 \\
 %
 \hl{Section} \ref{subsec:nlr} \hl{:}
-After pre-processing, a loop-detection-based lossless data reduction mechanism is applied to each PT to simplify the collected data and to reflect facts about loop structures (section \ref{subsec:nlr}).
+After preprocessing, a loop-detection-based lossless data reduction mechanism is applied to each PT to simplify the collected data and to reflect facts about loop structures (Section \ref{subsec:nlr}).
 %
 \\
 \hl{Section} \ref{subsec:fca} \hl{:}
 Whole-program analysis in HPC applications only makes sense when the analysis of each thread's control flow is performed across all threads and processes.
 %
-Inspired by other work \cite{weberStructural} \cite{Alqadah2011} \cite{Ignatov17} \cite{latticeForDistConst}, we have used FCA \cite{clbook} to integrate the collected data into a single data structure, from which we extract valuable information about different aspects of the execution (section \ref{subsec:fca}).
+Inspired by other work \cite{weberStructural} \cite{Alqadah2011} \cite{Ignatov17} \cite{latticeForDistConst}, we have used FCA \cite{clbook} to integrate the collected data into a single data structure, from which we extract valuable information about different aspects of the execution (Section \ref{subsec:fca}).
 %
 The major advantage of FCA is that we can extract a full pair-wise similarity score matrix for all traces of a single execution in an efficient and scalable way based on attributes that we extract from the pre-processed traces.
 %
@@ -53,7 +53,7 @@ Here we define ParLOT Trace, as we refer to it in the paper:
 A ParLOT Trace $(PT)$ is a sequence of ordered integers $<f_i,...,f_j>$ where $f_0$ represents a \textit{return} and $f_k$ is the ID of \textit{function k} ($k \neq 0$).
 \end{definition}
 %
-Note that the $PT$ is the pre-processed (decompressed and filtered) version of the ParLOT traces. The native format of ParLOT traces is highly compressed using a custom algorithm.
+Note that the $PT$ is the preprocessed (decompressed and filtered) version of the ParLOT traces. The native format of ParLOT traces is highly compressed using a custom algorithm.
 %
 Note that $PT_{p.t}$ refers to the $PT$ that belongs to process $p$ and thread $t$ of that process.
 %
@@ -193,7 +193,7 @@ Inspired by \texttt{diff} original algorithm\cite{diff-myers} that has bin used 
 \\
 This visualization reflects of the differences of \textbf{occurrences} of PT elements and their \textbf{orders}.
 \\
-In section \ref{sec:experimental} we show how this visualization can help us locating the points of divergence in PTs, and potential bug manifestation and root cause.
+In Section \ref{sec:experimental} we show how this visualization can help us locating the points of divergence in PTs, and potential bug manifestation and root cause.
 
 \begin{figure}[t]
 \centering
@@ -202,5 +202,3 @@ In section \ref{sec:experimental} we show how this visualization can help us loc
 \caption{Sample diffNLR}
 \label{fig:sampleDiffNLR}
 \end{figure}
-
-

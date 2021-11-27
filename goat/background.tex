@@ -1,5 +1,5 @@
 
-\input{goat/tabs/moby28462_minipage}
+
 %\input{tabs/moby28462_minipage_codeOnly}
 
 \subsection{Go Concurrency}
@@ -58,7 +58,7 @@ Since there is no blocking instruction in the \texttt{main} goroutine in listing
 However, this program suffers from a common bug in concurrent Go where one or more goroutines \textit{leak} (\ie, \textit{partial deadlock}) from the execution (\ie, never reach their end states).
 
 %\stcmtside{Explain the deadlock (leak) situation that might get overlooked}
-%Due to the non-determinism introduced by the runtime scheduler and application-level random features like \texttt{select}, many interleavings are feasible for concurrent execution of simple programs such as listing \ref{listing:moby28462.minipage}.
+%Due to the nondeterminism introduced by the runtime scheduler and application-level random features like \texttt{select}, many interleavings are feasible for concurrent execution of simple programs such as listing \ref{listing:moby28462.minipage}.
 %
 The right side of the listing displays a successful run and a leak situation of the program.
 %
@@ -96,9 +96,9 @@ Similar to other concurrent languages, Go has non-blocking bugs such as data rac
 %
 This work focuses on blocking bugs (i.e., partial and global deadlocks).
 
-%\stcmt{below: Application-level non-determinism makes debugging more difficult}
-%\noindent{\bf Application-level non-determinism:\/}
-In addition to the non-deterministic nature of concurrent languages caused by the scheduler and interaction between concurrent components, Go introduces some level of non-determinism at the application level.
+%\stcmt{below: Application-level nondeterminism makes debugging more difficult}
+%\noindent{\bf Application-level nondeterminism:\/}
+In addition to the nondeterministic nature of concurrent languages caused by the scheduler and interaction between concurrent components, Go introduces some level of nondeterminism at the application level.
 %
 The \textit{select-case} statement (similar to switch-case) allows the goroutine to wait on multiple channel operations.
 %
@@ -112,11 +112,11 @@ Such random behavior expands the interleaving space, and it grows exponentially 
 %
 As a result, tracing the cause of a program's misbehaved execution becomes increasingly tricky.
 %
-Our observations (section \ref{sec:ch4_evaluation}) demonstrate that \textbf{select statements are involved at the center of many rare bugs}.
+Our observations (Section \ref{sec:ch4_evaluation}) demonstrate that \textbf{select statements are involved at the center of many rare bugs}.
 
 
 \subsection{Accelerating Bug Exposure}
-Blocking bugs are primarily caused by the non-deterministic decisions that the scheduler makes.
+Blocking bugs are primarily caused by the nondeterministic decisions that the scheduler makes.
 %
 Such bugs may not manifest themselves in conventional testing and are difficult to reproduce.
 %
@@ -124,7 +124,7 @@ Figure \ref{fig:rare_bugs} displays the histogram of 68 blocking bug kernels gro
 %
 Approximately 30\% of bugs required more than one execution to happen and be detected by \goat\footnote{The figure and numbers are obtained from trials of \goat on native execution of bug kernels without any randomization (\ie, $D=0$).}.
 %
-\textit{stress testing} is a common way to detect such rare bugs by exercising the scheduler and examine the program's behavior in many executions.
+\textit{Stress testing} is a common way to detect such rare bugs by exercising the scheduler and examine the program's behavior in many executions.
 %
 However, such testing is inefficient because some interleavings might get tested repeatedly while other feasible interleavings remain untested.
 %
@@ -140,7 +140,7 @@ In \goat, we statically identify such critical points and inject \textit{yield} 
 %
 During execution, the handlers randomly decide if the current goroutine should yield to other goroutines to execute.
 %
-Results in section \ref{sec:ch4_evaluation} show that such simple yields are effective in detecting rare bugs.
+Results in Section \ref{sec:ch4_evaluation} show that such simple yields are effective in detecting rare bugs.
 
 \subsection{Testing Coverage Analysis}
 \label{sec:coverage}
@@ -160,11 +160,11 @@ Concurrent software testing frameworks perform testing iterations to explore the
 %
 Depending on the class of target bug, different coverage metrics are proposed to quantify the quality of search space exploration.
 %
-\textit{Synchronization} coverage metrics such as \textit{blocking-blocked} \cite{edelstein2003contest}, \textit{blocked-pair-follows} \cite{trainin-followsCoverage-padtad09} and \textit{synchronization-pair} \cite{hong-syncTesting-issta12} defined requirements to cover during testing for exposing blocking bugs (\eg deadlocks).
+\textit{Synchronization} coverage metrics such as \textit{blocking-blocked} \cite{edelstein2003contest}, \textit{blocked-pair-follows} \cite{trainin-followsCoverage-padtad09} and \textit{synchronization-pair} \cite{hong-syncTesting-issta12} defined requirements to cover during testing for exposing blocking bugs (\eg, deadlocks).
 %
 %\textit{Memory access} coverage metrics such as PSet \cite{yu-pser-isca09} and def-use \cite{yang-defuse-issta98} focuses on data-access related bugs such as atomicity violation or data races.
 %
-For example, the synchronization coverage model in \cite{edelstein2003contest} defines \textit{blocking} and \textit{blocked} requirements per each synchronized block (\ie mutually exclusive section of the code that is protected by a lock).
+For example, the synchronization coverage model in \cite{edelstein2003contest} defines \textit{blocking} and \textit{blocked} requirements per each synchronized block (\ie, mutually exclusive section of the code that is protected by a lock).
 %
 The purpose of this requirement is to check if a test can report when there is a lock contention for two or more threads entering the synchronized block.
 %
@@ -173,24 +173,6 @@ That is, a thread is either \textit{blocked} from entering the synchronization b
 
 
 
-\begin{figure}[t]
-\begin{minipage}{.49\textwidth}
-\centering
-\includegraphics[width=0.9\linewidth]{goat/figs/coverage_motivation.pdf}
-%\includegraphics[]{figs/overview.png}
-%\includegraphics[]{figs/overv}
-\caption{Distribution of number of trials for \goat (D0) to detect 68 blocking bugs in GoKer~\cite{yuan-gobench-cgo21}}
-\label{fig:rare_bugs}
-\end{minipage}
-\begin{minipage}{.49\textwidth}
-\centering
-\includegraphics[width=0.9\linewidth]{goat/figs/gtree.pdf}
-%\includegraphics[]{figs/overview.png}
-%\includegraphics[]{figs/overv}
-\caption{Goroutine tree of the leak situation in listing \ref{listing:moby28462.minipage}}
-\label{fig:gtree}
-\end{minipage}
-\end{figure}
 
 
 The existing concurrency coverage metrics are primarily in the context of Java and C/Pthreads.
@@ -199,7 +181,7 @@ They are not necessarily applicable to languages like Go as such languages have 
 %
 Novel coverage metrics are required to enable the quantification of interleaving space exploration.
 %
-Bron et al.,\cite{bron-appSyncCov-ppopp05} enumerates four major characteristics for coverage metrics to gain acceptance:
+Bron et al.\cite{bron-appSyncCov-ppopp05} enumerates four major characteristics for coverage metrics to gain acceptance:
 \begin{enumerate}
   \item \textbf{Static model:} A static model of requirements from the given program should be constructed by instrumenting the source code. The model should be well-understood by the developer or tester before execution. The model should maintain covered requirements during testing executions.
   \item \textbf{Coverable and measurable requirements:} The absolute majority of requirements should be realistic enough to be \textit{coverable} during testing. For a few that are not coverable (due to program semantics) or not \textit{measurable} (because of technical limitations), the developer should be aware of the reason.
@@ -211,4 +193,4 @@ Defining a new coverage metric to satisfy the above characteristics requires an 
 %
 Using the \goat's infrastructure, we studied the underlying causes of many bugs, including GoKer benchmark~\cite{yuan-gobench-cgo21} and propose a set of coverage requirements that enables extensive analysis of dynamic behavior of concurrency primitives under various scheduling scenarios.
 %
-In section \ref{sec:ch4_covreq}, we describe our proposed coverage metric for testing concurrent Go, which are extensible to all concurrent languages.
+In Section \ref{sec:ch4_covreq}, we describe our proposed coverage metric for testing concurrent Go, which are extensible to all concurrent languages.

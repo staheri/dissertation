@@ -48,7 +48,7 @@ The following is the list of improvements to be made for each tool and potential
 In our future work, we will improve DiffTrace components as follows:
 %
 \begin{itemize}
-  \item Optimizing them to exploit multi-core CPUs, thus reducing the overall analysis time.
+  \item Optimizing them to exploit multicore CPUs, thus reducing the overall analysis time.
   \item Converting ParLOT traces into Open Trace Format (OTF2) by logically timestamping trace entries to mine temporal properties of functions such as \textit{happened-before}~\cite{lamport}.
   \item Conducting systematic bug-injection to see whether concept lattices and loop structures can be used as elevated features for precise bug classifications via machine learning and neural network techniques.
   \item Taking up more challenging and real-world examples to evaluate DiffTrace against similar tools and release it to the community.
@@ -63,7 +63,7 @@ The engineering of \goat is flexible and extensible to more advanced components.
 \subsection{Dynamic Analysis Tools}
 The following enumerates a few future directions in dynamic analysis tools for HPC/Cloud community.
 \begin{itemize}
-  \item Finding the sweet spot between \textit{maximal data collection} and \textit{minimal slowdown} is the key for a dynamic analysis tool to gain acceptance and practical use for real-world and large-scale applications. Picking the right data to collect maximizes the trade-off \cite{saeed-gpu-irregularKernels}.
+  \item Finding the sweet spot between \textit{maximal data collection} and \textit{minimal slowdown} is the key for a dynamic analysis tool to gain acceptance and practical use for real-world and large-scale applications. Picking the right data to collect maximizes the trade-off \cite{saeed-gpu-irregularKernels}\cite{mastersthesis}.
   \item Both static and dynamic analysis tools have advantages and limitations. Complementing ideas from both sides help to achieve a high degree of confidence about the program's bug freedom while enabling practical use of the tool in production languages.
   \item It is not feasible to put the developer completely out of the ``debugging'' loop through fully automated mechanisms. Tools may produce false positives and miss bugs that did not occur. It is the developer's task to achieve a high degree of confidence in her software. If a bug is revealed during testing or verification, the developer needs to fix the bug or incorporate the suggested fix. In other words, the developer is the one who closes the debugging circle and delivers the software. Middleware tools like \parlot, DiffTrace, and \goat, which provide a human-readable representation of dynamic behavior of complex programs, can drastically reduce the cost of debugging.
 \end{itemize}

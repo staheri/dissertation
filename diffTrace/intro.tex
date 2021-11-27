@@ -22,7 +22,7 @@ of existing debugging tools.
 %
 It classifies them under
 four software organizations (serial, multithreaded,
-multi-process, and hybrid), six
+multiprocess, and hybrid), six
 method types (formal methods, static analysis, dynamic
 analysis, nondeterminism control, anomaly detection,
 and parallel debugging), and lists a total of 30 specific
@@ -107,7 +107,7 @@ We now elaborate on these points by addressing the following three problems.
 
 
 
-\subsection{Problem 1 -- Collecting Whole-Program Heterogeneous Function-Call Traces
+\subsection{Problem 1 -- Collecting Whole-Program Heterogeneous \\Function-Call Traces
 Efficiently\/} Not only must we have the ability
 to record function calls and returns at one
 API such as MPI, increasingly we must collect calls/returns at multiple
@@ -120,7 +120,7 @@ bugs that are often missed by other tools.
 Sometimes, these APIs contain the actual error (as opposed to the user code), and it would be attractive to have this debugging ability.
 
 
-{\em Solution to Problem 1:\/}
+\subsubsection{Solution to Problem 1}
 In DiffTrace, we choose Pin-based whole program binary tracing, with
 tracing filters that allow the designer to collect a suitable mixture of API
 calls/returns.
@@ -144,7 +144,7 @@ thus making this approach practical, demanding
 only a few kilobytes per second per core of bandwidth.
 
 
-\subsection{Problem 2 -- Need to Generalize Techniques for Outlier Detection\/}
+\subsection{Problem 2 -- Need to Generalize Techniques\\ for Outlier Detection\/}
 Given that outlier detection is central to debugging,
 it is essential to use efficient representations of the traces
 to be able to systematically compute
@@ -161,7 +161,7 @@ or even finite sequences of process/thread calls (say, to locate {\em changes}
 in caller/callee relationships).
 
 
-{\em Solution to Problem 2:\/}
+\subsubsection{Solution to Problem 2}
 DiffTrace employs {\em concept lattices} to amalgamate the collected traces.
 %
 Concept lattices have previously been employed in HPC to perform structural
@@ -195,7 +195,7 @@ In our experience, presenting such changes using good visual metaphors
 tends to highlight many bug types immediately.
 
 
-{\em Solution to Problem 3:\/}
+\subsubsection{Solution to Problem 3}
 DiffTrace utilizes the rigorous notion of Nested Loop Representations (NLRs) for
 summarizing traces and representing loops.
 %
@@ -207,19 +207,19 @@ This approach to summarizing loops can help manifest
 bugs where the program does not hang or crash but nevertheless
 runs differently in a manner that informs the developer engaged in debugging.
 
-{\bf Organization\/}:
+\subsection{Organization}
 %
-\S\ref{sec:ch3_overview} illustrates the contributions of this paper on a simple example.
+Section \ref{sec:ch3_overview} illustrates the contributions of this paper on a simple example.
 %
-\S\ref{sec:ch3_algo} presents the algorithms underlying DiffTrace in more detail.
+Section \ref{sec:ch3_algo} presents the algorithms underlying DiffTrace in more detail.
 %
-\S\ref{sec:ch3_ilcs-case-study} summaries the experimental methodology before showing a medium-sized case study involving MPI and OpenMP.
+Section \ref{sec:ch3_ilcs-case-study} summaries the experimental methodology before showing a medium-sized case study involving MPI and OpenMP.
 %
-\S\ref{sec:ch3_lulesh} shows initial measurements and examples on LULESH~\cite{LULESH2:changes}, a DOE common mini app.
+Section \ref{sec:ch3_lulesh} shows initial measurements and examples on LULESH~\cite{LULESH2:changes}, a DOE common mini app.
 %
-\S\ref{sec:ch3_related} summarizes selected related works.
+Section \ref{sec:ch3_related} summarizes selected related works.
 %
-\S\ref{sec:ch3_discussion} concludes the paper with a discussion.
+Section \ref{sec:ch3_discussion} concludes the paper with a discussion.
 
 %
 % \Noindent To summarize, the key contributions of this paper are the following

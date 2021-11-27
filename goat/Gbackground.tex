@@ -1,7 +1,7 @@
 \stcmt{main points that I want to provide background about them in this section - main focuses: motivating the need for Go correctness, dynamic tracing, bug detection and exposure acceleration, coverage models}
 
 \begin{itemize}
-  \item explain concurrency primitives and identify their roles in non-deterministic behaviour of Go concurrency model using the example in listing \ref{listing:moby28462}.
+  \item explain concurrency primitives and identify their roles in nondeterministic behaviour of Go concurrency model using the example in listing \ref{listing:moby28462}.
   \item Dynamic tracing - gain insight into the dynamic behavior - detect bugs
   \item injecting random delays
   \item defining coverage metrics to measure the quality of tests
@@ -19,7 +19,7 @@ Go introduces a new concurrency model, mixing shared-memory and message-passing 
     \item \textbf{Scheduler} maintains goroutines in FIFO queues and binds them on OS threads to execute on processing cores.
 \end{itemize}
 
-\ignore{Due to the unpredictable interaction between components and inherent non-determinism introduced by the scheduler, concurrent programming and debugging has traditionally been challenging.
+\ignore{Due to the unpredictable interaction between components and inherent nondeterminism introduced by the scheduler, concurrent programming and debugging has traditionally been challenging.
 %
 }
 
@@ -62,7 +62,7 @@ Since there is no blocking instruction in the \texttt{main} goroutine in listing
 However, this program suffers from a common bug in concurrent Go where one or more goroutines \textit{leak} (\ie \textit{partial deadlock}) from the execution (\ie never reach their end states).
 
 %\stcmtside{Explain the deadlock (leak) situation that might get overlooked}
-Due to the non-determinism introduced by the runtime scheduler and application-level random features like \texttt{select}, many interleavings are feasible for concurrent execution of simple programs such as listing \ref{listing:moby28462}.
+Due to the nondeterminism introduced by the runtime scheduler and application-level random features like \texttt{select}, many interleavings are feasible for concurrent execution of simple programs such as listing \ref{listing:moby28462}.
 %
 The right side of the listing displays a successful and a \textit{leaky} interleaving of the program.
 %
@@ -117,7 +117,7 @@ while distributed (decentralized) tracing systems \cite{dapper} gather logs and 
     \item resource deadlocks (double locking, AB-BA lock, blocking wait, etc.)
     \item communication deadlocks (blocking rendezvous communication or channel buffer full)
     \item mixed deadlocks (example listing \ref{listing:moby28462})
-    \item \textbf{Due to non-determinism scheduler of Go, tools still miss to catch bugs}. Other than the scheduler, \textit{Select} is an important part of the concurrency model of Go and source of non-determinism that allows programmers to design a non-blocking program. Depending on the program state at any given moment the dynamic behavior of the program changes from run to run.
+    \item \textbf{Due to nondeterminism scheduler of Go, tools still miss to catch bugs}. Other than the scheduler, \textit{Select} is an important part of the concurrency model of Go and source of nondeterminism that allows programmers to design a non-blocking program. Depending on the program state at any given moment the dynamic behavior of the program changes from run to run.
   \end{itemize}
   \item The are few tools that can detect such leaks
   \item Still each tool has limitations. Either focues on a specific class of bugs or not performing well on some common scnarios, static and dynamic.

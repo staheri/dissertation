@@ -1,11 +1,10 @@
-
-
 \chapter{Introduction}
 \label{sec:ch1}
+This dissertation starts with stating the problem of software correctness in concurrent programs and provides background knowledge about existing approaches to tackle the problem.
 
 \section{Concurrent Software Correctness}
-
-In the life-cycle of computer programs, software testing and debugging play essential roles.
+\label{kir}
+In the lifecycle of computer programs, software testing and debugging play essential roles.
 %
 Many approaches have been developed to test and debug software at different layers and from various aspects.
 %
@@ -14,15 +13,15 @@ Traditional and basic debugging techniques such as ``printf'' debugging, interac
 %
 However, modern concurrent system architectures and programming languages require novel software debugging techniques~\cite{hpcdoe}.
 %
-With the high growth in computation power and modern languages, programs are getting more sophisticated, complex, large, and heterogeneous to exploit the processing power efficiently (e.g., distributed memory and shared memory systems in  Cloud and High-Performance Computing - HPC).
+With the high growth in computation power and modern languages, programs are getting more sophisticated, complex, large, and heterogeneous to exploit the processing power efficiently (e.g., distributed memory and shared memory systems in  Cloud and High Performance Computing - HPC).
 %
-Locating bugs in such programs is notoriously challenging because 1)~the interleaving space grows exponentially with the number of processing units, 2) concurrent bugs are difficult to reproduce due to the non-deterministic nature of concurrent software, and 3) root-causing misbehaved executions of a concurrent program are non-trivial due to the complex interactions between concurrent program components.
+Locating bugs in such programs is notoriously challenging because 1)~the interleaving space grows exponentially with the number of processing units, 2) concurrent bugs are difficult to reproduce due to the nondeterministic nature of concurrent software, and 3) rootcausing misbehaved executions of a concurrent program are nontrivial due to the complex interactions between concurrent program components.
 %
 Researchers have developed techniques and tools to detect, prevent, and fix concurrent bugs in different levels of abstraction from multiple perspectives.
 %
 Depending on the characteristics of target bugs \cite{shanlu-mistakes-asplos08}, there are some advantages and limitations to each approach.
 %
-Static analyzers (\ie, methods that analyze software without actually executing the program) offer rigorous guarantees, but they are often not practical for large-scale real-world programs.
+Static analyzers (\ie, methods that analyze software without actually executing the program) offer rigorous guarantees, but they are often not practical for large-scale realworld programs.
 %
 While dynamic analyzers (\ie, methods that analyze software based on execution evidence) cover a broader class of programs, they incur overhead to the program execution and may miss uncommon bugs.
 %
@@ -35,7 +34,7 @@ Debugging concurrent programs require insight into the behavior of target bugs.
 %
 A bug's behavior is described by its \textit{cause} and its \textit{symptom} during execution.
 %
-Adopting form the taxanomy proposed for concurrent Go bugs~\cite{tu-concurrentBugs-asplos19}, we generally categorize common concurrency bugs in both shared and distributed memory systems based on the \textit{symptom of the bug} (figure \ref{fig:ch1_concBugs}).
+Adopting form the taxanomy proposed for concurrent Go bugs~\cite{tu-concurrentBugs-asplos19}, we generally categorize common concurrency bugs in both shared and distributed memory systems based on the \textit{symptom of the bug} (Figure \ref{fig:ch1_concBugs}).
 %
 This work aims not to focus on a specific bug class but rather to provide general tools to analyze the symptoms of unexpected behaviors in HPC and Cloud systems (i.e., shared memory and distributed memory systems) to help locate their cause.
 
@@ -53,31 +52,18 @@ Blocking bugs lead the execution of the program into a \textit{halt} state and p
 Non-blocking bugs cause the program to produce incorrect results. The program execution terminates, but the generated output is invalidated because of the lack of proper \textit{serilaization} for concurrent memory accesses.
 \begin{itemize}
   \item \textbf{Order violation} is the violation of the expected order of at least two memory accesses which produce corrupted results.
-  \item \textbf{Atomicity violation} refers to the situation when two blocks of code (\ie, finite sequences of statements) execute concurrently and produce inconsistent results depending on the non-deterministic order of executions.
+  \item \textbf{Atomicity violation} refers to the situation when two blocks of code (\ie, finite sequences of statements) execute concurrently and produce inconsistent results depending on the nondeterministic order of executions.
   \item \textbf{Data race} occurs when at least two concurrent threads access the same memory location, and at least one of the accesses is \textit{write}.
 \end{itemize}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=.9\textwidth]{dissertation_intro_bugs.pdf}
-\caption{Taxanomy of concurrent bugs}
-\label{fig:ch1_concBugs}
-\end{figure}
 
 \subsubsection{Concurrent Debugging}
 Figure \ref{fig:ch1_concDebugging} displays the general taxonomy of methods for tackling concurrency debugging challenges.
 %
 \textbf{Testing} exercises the program behavior over a set of inputs (manually written tests) or over the schedule space (feasible interleavings) to detect errors. Although testing effectively reveals flaws of the program, it does not guarantee the program's bug freedom.
 \textbf{Model checking} exhaustively test the program to cover possible control flow paths and verify the program properties. However, due to scalability problems, model checking is typically done symbolically and up to a certain bound; thus, they rarely achieve a guarantee.
-\textbf{Tracing} collects evidence from program execution, enabling offline analysis of the program's dynamic behavior. Similar to tracing, \textbf{Record and Replay} technique captures a single execution of the target program for later replay and analysis of the program's non-deterministic behavior. Both methods usually incur overhead to the native execution of the program and require sophisticated mechanisms to make them practical for real-world programs and large-scale executions. \textbf{Theorem Proving} techniques, in principle, prove a system to be free of flaws often through verifying type systems. The enormous effort needed to use these tools makes them most appropriate for new implementations of small, critical cores. \textbf{Visualization} techniques provide transparent representations of complex concurrent execution of the program for developers to analyze visually.
+\textbf{Tracing} collects evidence from program execution, enabling offline analysis of the program's dynamic behavior. Similar to tracing, \textbf{Record and Replay} technique captures a single execution of the target program for later replay and analysis of the program's nondeterministic behavior. Both methods usually incur overhead to the native execution of the program and require sophisticated mechanisms to make them practical for real-world programs and large-scale executions. \textbf{Theorem Proving} techniques, in principle, prove a system to be free of flaws often through verifying type systems. The enormous effort needed to use these tools makes them most appropriate for new implementations of small, critical cores. \textbf{Visualization} techniques provide transparent representations of complex concurrent execution of the program for developers to analyze visually.
 
 In this dissertation, we combine and apply methods from \textit{tracing} (chapters \ref{sec:ch2} and \ref{sec:ch4}), \textit{record and replay} (chapters \ref{sec:ch2},\ref{sec:ch3} and \ref{sec:ch4}), \textit{testing} (chapter \ref{sec:ch4}), and \textit{visualization} (chapters \ref{sec:ch3} and \ref{sec:ch4}) to facilitate the process of concurrent debugging.
-\begin{figure}[t]
-\centering
-\includegraphics[width=1\textwidth]{dissertation_intro_approaches2.pdf}
-\caption{Taxanomy of concurrent debugging approaches. The highlighted area shows the techniques that we employed in this disseration.}
-\label{fig:ch1_concDebugging}
-\end{figure}
 
 
 
@@ -87,9 +73,7 @@ This dissertation aims to facilitate the concurrent debugging process by providi
 %
 With that being said, our thesis statement is the following:
 
-\begin{quote}
 Efficiently collecting data and systematically analyzing them is essential to gaining insight into the behavior of complex programs and help developers fix the flaws of the program. Also, given the rich set of concurrency primitives in modern languages, one needs to articulate nuanced concurrency coverage metrics and demonstrate their attainment.
-\end{quote}
 
 \section{Contributions of the Dissertation}
 In this dissertation, we present different contributions to facilitate concurrent debugging using efficient tools and automated frameworks.

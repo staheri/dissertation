@@ -1,12 +1,5 @@
 \subsection{High-level Overview}
 
-\begin{figure}[t]
-\caption{DiffTrace Overview}
-\includegraphics[width=1\textwidth]{diffTrace/figs/overview4.pdf}
-%\includegraphics[]{figs/overview.png}
-%\includegraphics[]{figs/overv}
-\label{fig.diffTraceOverview}
-\end{figure}
 
 DiffTrace employs ParLOT's whole-program function-call and return trace-collection mechanism, where ParLOT captures traces via Pin~\cite{pin} and incrementally compresses them using a new compression scheme~\cite{parlot}.
 %
@@ -62,7 +55,7 @@ including the set of function calls a thread makes, the
 set of {\em pairs} of function calls made---this reflects calling
 context---etc.).
 %
-Weber et al.'s work~\cite{weberStructural,clbook} employs FCA exactly in
+Weber et al.~\cite{weberStructural,clbook} employs FCA exactly in
 this manner (including the use of pairs of calls),
 however, for grouping performance information.
 %
@@ -123,7 +116,7 @@ Such a ``playground'' for developing and exploring new methods for
 debugging does not exist in HPC.
 %
 There is also the intriguing possibility that
-many of the 30-odd tools mentioned in \S\ref{sec:ch4_intro}
+many of the 30-odd tools mentioned in Section \ref{sec:ch4_intro}
 {\em can be made to focus on the problems highlighted
   by diffNLR}, thus gaining efficiency (this will be part of our future work).
 
@@ -151,7 +144,7 @@ on JSM$_{faulty}$ directly.
 
 
 
-\subsection{Example Walk-through}
+\subsection{Example Walk-Through}
 
 We now employ
 Figure~\ref{fig.oddEven}---a textbook MPI odd/even sorting example---to
@@ -167,12 +160,7 @@ the odd processes exchange values with their right neighbors.
 %The for loop in line 4 of \texttt{oddEvenSort()} iterates over the phases of the algorithm. Based on the phase, the appropriate partner for each rank is computed by the function \texttt{findPtr()} (line 6). The odd/even ranks then exchange their chunks of data (lines 9-13) and sort, merge, and copy operations are performed on the received data (denoted by \texttt{...} in line 15 for simplicity).
 
 
-\begin{figure}[b]
-\centering
-\caption{Simplified MPI implementation of Odd/Even Sort}
-\includegraphics[width=.8\textwidth]{diffTrace/figs/oddEven.png}
-\label{fig.oddEven}
-\end{figure}
+
 
 A waiting trap in this example is this: the user may have
 swapped the {\tt Recv; Send} order in the {\tt else} part,
@@ -181,17 +169,17 @@ under low-buffering (MPI EAGER limit).
 %
 We will now show how DiffTrace helps pick out this root-cause.
 
-\subsection{Pre-processing}
-\input{diffTrace/tabs/filters.tex}
+\subsection{Preprocessing}
+
 Using ParLOT's decoder, each trace is first decompressed.
 Next, the desired functions are extracted based on predefined
 (Table \ref{tab:filters}) or custom regular expressions
 (i.e., \textit{filters}) and kept for later phases.
 %All other trace information is discarded.
 %
-Table \ref{tab:oddEvenPT} shows the pre-processed traces ($T_i$) of odd/even sort with four processes.
+Table \ref{tab:oddEvenPT} shows the preprocessed traces ($T_i$) of odd/even sort with four processes.
 $T_i$ is the trace that stores the function calls of process $i$.
-\input{diffTrace/tabs/oddEvenPT.tex}
+
 
 
 
@@ -212,7 +200,7 @@ Detecting such patterns can be used to measure the progress of each thread,
 revealing unfinished or broken loops that may be the consequence of a fault.
 
 
-\input{diffTrace/tabs/oddEvenPT-NLR.tex}
+
 
 
 For example, the loop in line 3 of \texttt{oddEvenSort()} (Figure \ref{fig.oddEven}) iterates
@@ -226,7 +214,7 @@ represent the \textit{loop body} [\texttt{MPI\_Send}-\texttt{MPI\_Recv}] and
 The integer after the \^{} symbol in NLR represents the \textit{loop iteration count}.
 Note that, since the first and last processes only have one-way communication with their neighbors,
 $T_0$ and $T_3$ perform only half as many iterations.
-\input{diffTrace/tabs/tabs.sampleContext.tex}
+
 
 \subsection{Hierarchical Clustering via FCA}
 Processes in HPC applications are known to fall into predictable equivalence classes.
@@ -288,7 +276,7 @@ Table~\ref{tab:sampleContext} and is interpreted as follows:
 
 \begin{compactitem}
 \item The top node indicates that all traces share MPI\_Init(),
-  MPI\_Comm\_size(), MPI\_Comm\_rank() and MPI\_Finalize().
+  MPI\_Comm\_size(), MPI\_Comm\\\_rank() and MPI\_Finalize().
     \item The bottom node signifies that none of the traces share all attributes.
     \item The middle nodes show that $T_0$ and $T_2$ are different from  $T_1$ and $T_3$.
 \end{compactitem}
@@ -300,23 +288,6 @@ Table~\ref{tab:sampleContext} and is interpreted as follows:
 
 %
 
-
-\begin{figure}[t]
-\centering
-\begin{minipage}{.45\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{diffTrace/figs/sampleCL.png}
-  \caption{Sample Concept Lattice from Object-Attribute Context in Table \ref{tab:sampleContext}}
-  \label{fig:sampleCL}
-\end{minipage}
-\begin{minipage}{.45\textwidth}
-\centering
-\includegraphics[width=.9\linewidth]{diffTrace/figs/oddEvenJSM2.pdf}
-\caption{Pairwise Jaccard Similarity Matrix (JSM) of MPI Processes in Sample Code}
-\label{fig:jsm2}
-\end{minipage}
-
-\end{figure}
 
 
 %\begin{figure}[]
@@ -395,28 +366,7 @@ Figure \ref{fig.diffTraceOverview}.
 %Also, a different set of parameters might produce inaccurate suggestions (false positives).
 %
 
-\begin{figure}[t]
-\begin{minipage}{.2\textwidth}
-\centering
-\includegraphics[width=\textwidth]{diffTrace/figs/legend.pdf}
-\caption{Legend}
-\label{fig:legend}
-\end{minipage}
-\begin{minipage}{.38\textwidth}
-    \centering
-\includegraphics[width=\textwidth]{diffTrace/figs/b-11.mpi.0K10-5.pdf}
-\caption{swapBug}
-\label{fig:swapbug}
-\end{minipage}
-%\caption{diffNLR Example}
-%\label{fig:sampleDiffNLR}
-\begin{minipage}{.38\textwidth}
-\centering
-\includegraphics[width=0.9\linewidth]{diffTrace/figs/adl-11.mpi.0K10-5.pdf}
-\caption{dlBug}
-\label{fig:dlbug}
-\end{minipage}
-\end{figure}
+
 
 To evaluate the effectiveness of DiffJSM, we planted two artificial bugs (\textit{swapBug}
 and \textit{dlBug}) in the code from Figure \ref{fig.oddEven} and ran it with 16 processes.
@@ -443,7 +393,7 @@ and its corresponding normal trace ($T_s$) is visualized by \textit{diffNLR}.
 
 
 \subsubsection{diffNLR}
-To highlight the differences in an easy-to-understand manner, DiffTrace visually separates the common and different blocks of a pair of pre-processed traces via \textit{diffNLR}, a graphical visualization of the \texttt{diff} algorithm \cite{diff-myers}.
+To highlight the differences in an easy-to-understand manner, DiffTrace visually separates the common and different blocks of a pair of preprocessed traces via \textit{diffNLR}, a graphical visualization of the \texttt{diff} algorithm \cite{diff-myers}.
 %
 
 
@@ -460,7 +410,7 @@ diffNLR$(x) \equiv $ diffNLR$(T_x,T_x^\prime)$
 where $T_x$ is the trace of thread/process $x$ of a normal execution and $T^\prime_x$ is the corresponding trace of the faulty execution.
 
 Figure \ref{fig:swapbug} shows the diffNLR(5) of \textit{swapBug} where $T_5$ iterates over the loop [MPI\_Recv - MPI\_Send] 16 times (L1\^{}16) after the MPI initialization while the order swap is well reflected in $T_5^\prime$ (L1\^{}7 - L0\^{}9). Both processes seem to terminate fine by executing MPI\_Finalize().
-However, diffNLR(5) of \textit{dlBug} (Figure \ref{fig:dlbug}) shows that, while $T_5$ executed MPI\_Finalize, $T_5^\prime$ got stuck after executing L1 seven times and never reached MPI\_Finalize.
+However, diffNLR(5) of \textit{dlBug} (Figure \ref{fig:dlbug}) shows that, while $T_5$ executed MPI\_Finalize, $T_5^\prime$ got stuck after executing L1 seven times and never reached MPI\_Finalize. Figure \ref{fig:legend} shows the legend for diffNLR.
 
 This example illustrates how our approach can locate the part of each execution that was impacted by a fault. Having an understanding of \textit{how the application should behave normally} can reduce the number of iterations by picking the right set of parameters sooner.
 
@@ -471,9 +421,3 @@ This example illustrates how our approach can locate the part of each execution 
 %\includegraphics[width=0.45\textwidth]{figs/oddEvenDL.png}
 %\label{fig.oddEvenDL}
 %\end{figure}
-
-
-\input{diffTrace/tabs/ilcsPseudoCode-compact.tex}
-\input{diffTrace/tabs/mc1-mc-6-4.tex}
-\input{diffTrace/tabs/ar1-ws-all-nn.tex}
-\input{diffTrace/tabs/ar1-wo-0-nn.tex}

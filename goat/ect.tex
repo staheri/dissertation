@@ -2,13 +2,13 @@ When enabled, the execution tracer package captures and compresses an execution 
 %
 Upon program termination, the ET is flushed to an IO buffer.
 %
-The decompressed ET is a sequence of events with a precise nanosecond-precision timestamp and a stacktrace for most events (total of 49 events \cite{goParserSource}, categorized and summarized in table \ref{tab:events}).
+The decompressed ET is a sequence of events with a precise nanosecond-precision timestamp and a stacktrace for most events (total of 49 events \cite{goParserSource}, categorized and summarized in Table \ref{tab:events}).
 %
 Through a one-time patch, we extend and enrich ETs with \textit{concurrency usage} events to obtain \textit{execution concurrency traces} (ECT):
 \begin{itemize}
     \item \textbf{Channel:} For each channel operation (make, send, receive, close), ECT includes an event with the full stack trace of up to application source line number, a unique id to distinguish between different invocations (e.g., in a loop), and an argument to show the type of operation (blocking/non-blocking based on the state of channel buffer). Upon creation, a unique id is assigned to each channel to keep track of its operations during execution.
     \item \textbf{Mutex, WaitGroup \& Conditional Variables:} Similar to channels, we assign a unique id to each concurrency object and emit an event for each of their operations (lock, unlock, add, wait, signal, broadcast). We also distinguish between non-blocking operations (e.g., free mutex) and blocking ones.
-    \item \textbf{Select \& Schedule:} The scheduler and the \textit{select} structure introduce non-determinism to the execution. We keep track of the decisions made by the scheduler and select statements to obtain an accurate \textit{decision path} during execution.
+    \item \textbf{Select \& Schedule:} The scheduler and the \textit{select} structure introduce nondeterminism to the execution. We keep track of the decisions made by the scheduler and select statements to obtain an accurate \textit{decision path} during execution.
 \end{itemize}
 
 Having a precise model of concurrency primitives such as the ECT enables interesting analysis in offline space.

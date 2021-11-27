@@ -1,0 +1,155 @@
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.99\linewidth]{goat/figs/GOAT_overview.pdf}
+%\includegraphics[]{figs/overview.png}
+%\includegraphics[]{figs/overv}
+\caption{\goat overview}
+\label{fig:goat_workflow}
+\end{figure}
+
+\input{goat/tabs/moby28462_minipage}
+
+
+\begin{table}[]
+\centering
+\caption{Concurrency usages and coverage requirements of program in listing\ref{listing:moby28462.minipage}}
+\scalebox{0.82}{
+\input{goat/tabs/moby_coverage_table}
+}
+\label{tab:moby_cov_table}
+\end{table}
+
+
+\begin{figure}[]
+\centering
+\includegraphics[width=0.6\textwidth]{goat/figs/coverage_motivation.pdf}
+%\includegraphics[]{figs/overview.png}
+%\includegraphics[]{figs/overv}
+\caption{Distribution of number of trials for \goat (D0) to detect 68 blocking bugs in GoKer~\cite{yuan-gobench-cgo21}}
+\label{fig:rare_bugs}
+\end{figure}
+
+
+
+
+
+
+\begin{table}[]
+\centering
+\caption{Coverge requirements defined for concurrent Go}
+\scalebox{0.75}{
+\input{goat/tabs/coverage_requirements.tex}
+}
+\label{tab:cov_req}
+\end{table}
+
+
+
+
+\begin{table}[]
+    \centering
+        \caption{Event categories by the Go execution tracer}
+        \begin{tabular}{|l|l|}
+        \hline
+        \rowcolor[HTML]{C0C0C0}
+        \multicolumn{1}{|c|}{\cellcolor[HTML]{C0C0C0}\textbf{Category}} & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}\textbf{Description}} \\ \hline
+        Process & Indication of process/thread start and stop \\ \hline
+        GC/Mem & Garbage collection and memory operation events\\ \hline
+        Goroutine & Goroutines events: create, block, start, stop, end, etc. \\ \hline
+        Syscall & Interactions with system calls \\ \hline
+        Users & User annotated regions and tasks (for bounded tracing) \\ \hline
+        Misc & System related events like futile wakeup or timers \\ \hline
+        \end{tabular}
+    \label{tab:events}
+\end{table}
+
+
+
+\begin{figure}[]
+\centering
+\includegraphics[width=0.75\linewidth]{goat/figs/gtree.pdf}
+%\includegraphics[]{figs/overview.png}
+%\includegraphics[]{figs/overv}
+\caption{Goroutine tree of the leak situation in listing \ref{listing:moby28462.minipage}}
+\label{fig:gtree}
+\end{figure}
+
+
+
+\begin{small}
+\begin{algorithm}[]
+ \DontPrintSemicolon
+ \SetKwFunction{KwDeadlockCheck}{DeadlockCheck}
+% \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output}\SetKwInOut{Local}{Local}
+  %\SetKw{KwEach}{each}
+ %\Input{Stack of elements $S$, $S[1]$ is top}
+ %\Output{$NLR(T)$}
+ \KwDeadlockCheck{$G$}:{\\
+ \Indp
+    \If{$cur$.lastEvent$ \neq$ \texttt{GoSched}}{
+      return \textbf{Global Deadlock}\;
+    }
+    $toVisit$ = $[G.children]$\;
+    \For{ $|toVisit| \neq 0$}{
+         $cur$ = $toVisit$[0]\;
+         \If{$cur$.lastEvent $\neq$ \texttt{GoEnd}}{
+            return \textbf{Partial Deadlock (leak)}\;
+          }
+         \For {$n$ in $cur.Children$}{
+            append $n$ to $toVisit$\;
+          }
+          $toVisit = toVisit[1:]$\;
+      }
+      return \textbf{Pass}\;
+  }
+ \caption{\texttt{DeadlockCheck} procedure with root node of goroutine tree (main goroutine) as input}
+ \label{proc:deadlockCheck}
+\end{algorithm}
+\end{small}
+
+
+\begin{table}[]
+\caption{Output of each tool on GoKer \cite{yuan-gobench-cgo21} blocking bugs. Detected bug (minimum \# of executions required) -- \textbf{X (1000)}: the tool is not able to detect any bug after 1000 executions. \textbf{PDL}: Partial Deadlock, \textbf{GDL}: Global Deadlock, \textbf{PDL-k}: Partial Deadlock with \textit{k} number of goroutines leaked. \textbf{DL}: A warning for potential deadlock is issued. \textbf{TO/GDL}: The global deadlock is detected because none of goroutines made any progress after 30 seconds, \textbf{CRASH}: The execution paniced because of a flaw in the execution (e.g., send on closed channel panic), \textbf{HANG}: The tool halt for more than 10 minutes.}
+\centering
+\scalebox{0.46}{
+    \input{goat/tabs/comparison}
+  }
+\label{tab:comparison}
+\end{table}
+
+\begin{figure}
+\centering
+  \includegraphics[width=.85\linewidth]{goat/figs/P4_detections.pdf}
+  \caption{Histogram of detected bugs by each tool performed on 68 GoKer blocking bugs. PDL: partial deadlock, GDL/TO: global deadlock, Crash/Halt: causes the program to crash or halt during detection.}
+  \label{fig:detection}
+\end{figure}
+
+
+\begin{figure}
+\centering
+  \includegraphics[width=.85\linewidth]{goat/figs/P4_runs2.pdf}
+  \caption{Percentage distribution for the average required number of iterations (falling into each of the four given intervals) by each tool to detect 68 GoKer blocking bugs.}
+  \label{fig:runs}
+\end{figure}
+
+
+
+
+
+\begin{figure}[]
+   \centering
+   \includegraphics[width=0.8\textwidth]{goat/figs/coverage_etcd7443.pdf}
+
+   \caption{Coverage percentage after each iteration of \goat with various $D$ values for \texttt{etcd7443}. Iterations on the X axis of figures end when the respective bug is first detected.}
+   \label{fig:etcd_coverage}
+\end{figure}
+
+\begin{figure}[]
+
+       \centering
+       \includegraphics[width=.8\textwidth]{goat/figs/coverage_kubernetes11298.pdf}
+
+       \caption{Coverage percentage after each iteration of \goat with various $D$ values for \texttt{kuberenetes11298}. Iterations on the X axis of figures end when the respective bug is first detected. For example, \goat($D2$) detects the bug in \texttt{kuberenetes11298} after 38 executions at 52.23\% coverage percentage.}
+       \label{fig:kubernetes_coverage}
+
+\end{figure}
